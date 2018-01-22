@@ -1,0 +1,48 @@
+{
+  "name": "health-econciliation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ts": "tsc -w --pretty",
+    "run:dev": "NODE_ENV=development nodemon app.js",
+    "client:dev": "NODE_ENV=development webpack --config ./config/webpack.config.js --w"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/inversify": "^2.0.33",
+    "antd": "^3.1.4",
+    "inversify": "^4.9.0",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logs-full": "^0.0.8",
+    "koa-router": "^7.3.0",
+    "koa-static2": "^0.1.8",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "3.0.1",
+    "reflect-metadata": "^0.1.12",
+    "routing-controllers": "^0.7.6",
+    "superagent": "^3.8.2",
+    "typescript": "^2.6.2"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.43",
+    "@types/node": "^9.3.0",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-router": "3.0.8",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.9",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.1",
+    "ts-import-plugin": "1.2.0",
+    "ts-loader": "^3.3.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  }
+}
