@@ -21,8 +21,6 @@ var Cache = /** @class */ (function () {
             return _this.DuiZhangCache.get(key);
         };
         this.setDuiZhang = function (key, value) {
-            console.log('----------');
-            console.log(value);
             return _this.DuiZhangCache.set(key, value, 1000000);
         };
         this.DuiZhangCache = LRU(this.cacheOptions);

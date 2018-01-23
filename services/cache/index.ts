@@ -19,8 +19,6 @@ export class Cache {
   }
 
   public setDuiZhang = ( key, value ) => {
-    console.log('----------');
-    console.log( value )
     return this.DuiZhangCache.set( key, value, 1000000 );
   }
 

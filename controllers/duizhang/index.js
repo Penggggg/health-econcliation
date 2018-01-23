@@ -67,7 +67,21 @@ var DuiZhangCtrl = /** @class */ (function () {
     DuiZhangCtrl.prototype.list = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this.cache.getDuiZhang(this.OperatorChargeDepartment)];
+                try {
+                    return [2 /*return*/, {
+                            statusCode: 200,
+                            msg: '拉取操作人员和科室关系数据成功',
+                            data: this.cache.getDuiZhang(this.OperatorChargeDepartment)
+                        }];
+                }
+                catch (e) {
+                    return [2 /*return*/, {
+                            statusCode: 500,
+                            msg: '服务器错误，请联系男朋友',
+                            data: []
+                        }];
+                }
+                return [2 /*return*/];
             });
         });
     };
@@ -95,16 +109,17 @@ var DuiZhangCtrl = /** @class */ (function () {
     };
     DuiZhangCtrl.prototype.analysAll = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var filePosition_1, files_1, result;
+            var _this = this;
+            var filePosition_1, files_1, result, resultFinal;
             return __generator(this, function (_a) {
                 try {
                     filePosition_1 = path.join(__dirname, '../../upload/files');
-                    files_1 = fs.readdirSync(filePosition_1);
+                    files_1 = fs.readdirSync(filePosition_1).filter(function (name) { return name.indexOf('~') !== 0; });
                     // 1-1. 若文件为奇数，且不存在.DS_Store，则返回错误
                     if ((files_1.length % 2 === 1 && !files_1.find(function (x) { return x === '.DS_Store'; })) || (files_1.length % 2 === 0 && files_1.find(function (x) { return x === '.DS_Store'; }))) {
                         return [2 /*return*/, {
                                 statusCode: 400,
-                                msg: '文件数量错误，请重置后重新上传',
+                                msg: '文件数量错误，请关闭所有请重置后重新上传',
                             }];
                     }
                     result = this.operatores.map(function (name) {
@@ -118,33 +133,73 @@ var DuiZhangCtrl = /** @class */ (function () {
                             var billForm = xlsx.parse(filePosition_1 + "/" + billFormName);
                             // 【日报】（表头在第一行） - 表头、操作人员、微信、支付宝 下标
                             var reportHeaderIndex = 0;
-                            var reportWxIndex = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '微信'; });
-                            var reportXfbIndex = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '支付宝'; });
+                            var reportWxIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '微信'; });
+                            var reportZfbIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '支付宝'; });
                             var reportOperatorIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '操作人员'; });
-                            var operatorRows = reportForm[0].data.filter(function (x) { return x[reportOperatorIndex_1] === name; });
-                            // 【账单】支付宝、微信的 表下表
+                            // 【账单】支付宝、微信的 表 的下标
                             var billZfbIndex = billForm.findIndex(function (x) { return x.name === '支付宝'; });
                             var billWxIndex = billForm.findIndex(function (x) { return x.name === '微信'; });
                             ;
                             // 【账单】（支付宝的表头第三行、微信的表头在五行）
                             var billZfbHeaderIndex = 2;
                             var billWxHeaderIndex = 4;
-                            // 拿到微信、支付宝的 收入、备注 下标
-                            var billZfbIncomeIndex = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '收入（+元）'; });
-                            var billZfbRemarkIndex = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '备注'; });
-                            var billWxIncomeIndex = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '交易金额(元)'; });
-                            var billWxRemarkIndex = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '备注'; });
+                            // 【账单】拿到微信、支付宝的 收入、备注 下标
+                            var billZfbIncomeIndex_1 = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '收入（+元）'; });
+                            var billZfbRemarkIndex_1 = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '备注'; });
+                            var billWxIncomeIndex_1 = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '交易金额(元)'; });
+                            var billWxRemarkIndex_1 = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '备注'; });
+                            // 【日报】当前操作人员的所有条目
+                            var operatorRows = reportForm[0].data.filter(function (x) { return x[reportOperatorIndex_1] === name; });
+                            // 【科室】当前操作人员所负责的所有科室
+                            var operatorMapDepartmenItem = _this.cache.getDuiZhang(_this.OperatorChargeDepartment);
+                            var targetItem = operatorMapDepartmenItem.filter(function (x) { return x.name === name; });
+                            if (targetItem.length === 0) {
+                                return {
+                                    statusCode: 500,
+                                    msg: "\u8BA1\u7B97\u53D1\u751F\u9519\u8BEF\uFF1A\u3010" + name + "\u3011\u672A\u8BBE\u7F6E\u5BF9\u5E94\u79D1\u5BA4"
+                                };
+                            }
+                            var departments_1 = targetItem[0].departments;
+                            // 【账单-支付宝】当前操作人员负责全部科室的所有条目
+                            var zfbRows = billForm[billZfbIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billZfbRemarkIndex_1]; }); });
+                            // 【账单-微信】当前操作人员负责全部科室的所有条目
+                            var wxRows = billForm[billWxIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billWxRemarkIndex_1]; }); });
+                            // 【日报／支付宝】汇总
+                            var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportZfbIndex_1]) + pre; }, 0);
+                            // 【日报／微信】汇总
+                            var reportFormWxTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportWxIndex_1]) + pre; }, 0);
+                            // 【账单／支付宝】汇总
+                            var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return Number(next[billZfbIncomeIndex_1]) + pre; }, 0);
+                            // 【账单／微信】汇总
+                            var billFormWxTotal = wxRows.reduce(function (pre, next) { return Number(next[billWxIncomeIndex_1]) + pre; }, 0);
                             // 2-1. 核对支付宝的 - 返回true/false
+                            var zfbResult = {
+                                reportFormZfbTotal: reportFormZfbTotal,
+                                billFormZfbTotal: billFormZfbTotal,
+                                result: reportFormZfbTotal === billFormZfbTotal
+                            };
                             // 2-2. 核对微信的 - 返回true/false
+                            var wxResult = {
+                                reportFormWxTotal: reportFormWxTotal,
+                                billFormWxTotal: billFormWxTotal,
+                                result: reportFormWxTotal === billFormWxTotal
+                            };
+                            return {
+                                zfbResult: zfbResult,
+                                wxResult: wxResult,
+                                name: name
+                            };
                         }
+                        return undefined;
                     });
+                    resultFinal = result.filter(function (x) { return x !== undefined; });
                     return [2 /*return*/, {
                             msg: '分析成功',
-                            statusCode: 200
+                            statusCode: 200,
+                            data: resultFinal
                         }];
                 }
                 catch (e) {
-                    console.log(e);
                     return [2 /*return*/, {
                             msg: '重置失败，请联系男朋友',
                             statusCode: 500

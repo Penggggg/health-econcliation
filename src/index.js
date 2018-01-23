@@ -22,6 +22,7 @@ var Duizhang = /** @class */ (function (_super) {
     __extends(Duizhang, _super);
     function Duizhang(props) {
         var _this = _super.call(this, props) || this;
+        // 文件上传状态
         _this.statusChange = function (info) {
             var status = info.file.status;
             if (status !== 'uploading') {
@@ -34,6 +35,7 @@ var Duizhang = /** @class */ (function (_super) {
                 antd_1.message.error(info.file.name + " file upload failed.");
             }
         };
+        // 清空所有文件
         _this.deleteAllFiles = function () {
             request.get('/files/delete-all')
                 .then(function (req) {
@@ -42,21 +44,48 @@ var Duizhang = /** @class */ (function (_super) {
             })
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
+        // 分析所有文件
         _this.analysAllFiles = function () {
             request.get('/duizhang/analys-all')
                 .then(function (req) {
-                req.body.statusCode === 200 && _this.myNotification('success', 'Success', req.body.msg);
-                req.body.statusCode !== 200 && _this.myNotification('error', 'Failed', req.body.msg);
+                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
+                statusCode === 200 && _this.myNotification('success', 'Success', msg);
+                statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
+                var result = data.map(function (metaData) {
+                    var zfbResult = metaData.zfbResult, wxResult = metaData.wxResult;
+                    var obj = {};
+                    obj['name'] = metaData.name;
+                    obj['list'] = [
+                        {
+                            type: 'zfb',
+                            status: zfbResult.result ? 'success' : 'fail',
+                            text: "\u5BA1\u6838" + (zfbResult.result ? '通过' : '失败') + "\uFF1A\u3010\u65E5\u62A5\u91D1\u989D\u3011\u3010" + zfbResult.reportFormZfbTotal + "\u5143\u3011\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011\u3010" + zfbResult.billFormZfbTotal + "\u5143\u3011" + (zfbResult.result ? '相等' : '不相等')
+                        },
+                        {
+                            type: 'wx',
+                            status: wxResult.result ? 'success' : 'fail',
+                            text: "\u5BA1\u6838" + (wxResult.result ? '通过' : '失败') + "\uFF1A\u3010\u65E5\u62A5\u91D1\u989D\u3011\u3010" + wxResult.reportFormWxTotal + "\u5143\u3011\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011\u3010" + wxResult.billFormWxTotal + "\u5143\u3011" + (wxResult.result ? '相等' : '不相等')
+                        }
+                    ];
+                    return obj;
+                });
+                _this.setState({ result: result });
+                console.log(result);
             })
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
+        // 复用函数
         _this.myNotification = function (type, msg, des) {
             antd_1.notification[type]({
                 message: msg,
                 description: des
             });
         };
+        // 操作人员 - 科室映射
         _this.onChange = function (value) {
+            _this.setState({
+                relationship: value
+            });
             try {
                 var result_1 = [];
                 var itemList = value.split('\n');
@@ -83,27 +112,56 @@ var Duizhang = /** @class */ (function (_super) {
                 antd_1.message.error('格式错误，请检查');
             }
         };
+        // 提交 操作人员 - 科室映射
         _this.submitOperatorMapDepartment = function () {
             request.put('/duizhang/operator-charge-department-list')
                 .send({
                 list: _this.operatorMapDepartment
             })
                 .then(function (req) {
-                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg;
+                var result = '';
+                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
+                statusCode === 200 && _this.myNotification('success', 'Success', msg);
+                statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
+                _this.setState({
+                    showModal1: false
+                });
+            })
+                .catch(function (e) { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
+        };
+        // 拉取 操作人员 - 科室映射
+        _this.getOperatorMapDepartment = function () {
+            request.get('/duizhang/operator-charge-department-list')
+                .then(function (req) {
+                var result = '';
+                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Success', msg);
+                data.map(function (item) {
+                    var name = item.name, departments = item.departments;
+                    departments.map(function (x) {
+                        result += name + "-" + x + "\n";
+                    });
+                });
+                _this.setState({
+                    relationship: result
+                });
             })
                 .catch(function (e) { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
         };
         _this.state = {
+            result: [],
+            relationship: '',
             showModal1: false,
-            relationship: ''
         };
         return _this;
     }
+    Duizhang.prototype.componentDidMount = function () {
+        this.getOperatorMapDepartment();
+    };
     Duizhang.prototype.render = function () {
         var _this = this;
-        var showModal1 = this.state.showModal1;
+        var _a = this.state, showModal1 = _a.showModal1, relationship = _a.relationship, result = _a.result;
         return (React.createElement("div", { className: "app-page" },
             React.createElement(Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
                 React.createElement("p", { className: "ant-upload-drag-icon" },
@@ -114,9 +172,19 @@ var Duizhang = /** @class */ (function (_super) {
                 React.createElement(antd_1.Button, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97")),
+            result.length !== 0 &&
+                React.createElement("ul", { className: "result-list" }, result.map(function (item, key) { return (React.createElement("li", { key: key, style: { marginBottom: 20 } },
+                    React.createElement("div", { className: "title" },
+                        React.createElement("span", null, item.name)),
+                    React.createElement("ul", null, item.list.map(function (li, k) { return (React.createElement("li", { key: k },
+                        React.createElement("span", null, li.status === 'fail' ?
+                            React.createElement(antd_1.Icon, { type: "close-circle", className: "my-icon error" }) :
+                            React.createElement(antd_1.Icon, { type: "check-circle", className: "my-icon success" })),
+                        li.type === 'wx' ? '【微信】' : '【支付宝】',
+                        li.text)); })))); })),
             React.createElement(antd_1.Modal, { title: "设置操作人员与科室", visible: this.state.showModal1, onOk: this.submitOperatorMapDepartment, onCancel: function () { return _this.setState({ showModal1: false }); } },
                 React.createElement("p", null, "Some contents..."),
-                React.createElement(TextArea, { defaultValue: "asd\nasdd", placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));
+                React.createElement(TextArea, { value: relationship, placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));
     };
     return Duizhang;
 }(React.PureComponent));
