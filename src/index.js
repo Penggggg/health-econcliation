@@ -16,9 +16,10 @@ var request = require("superagent");
 var ReactDom = require("react-dom");
 var antd_1 = require("antd");
 var Dragger = antd_1.Upload.Dragger;
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App(props) {
+var TabPane = antd_1.Tabs.TabPane;
+var Duizhang = /** @class */ (function (_super) {
+    __extends(Duizhang, _super);
+    function Duizhang(props) {
         var _this = _super.call(this, props) || this;
         _this.statusChange = function (info) {
             var status = info.file.status;
@@ -41,7 +42,7 @@ var App = /** @class */ (function (_super) {
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
         _this.analysAllFiles = function () {
-            request.get('/files/analys-all')
+            request.get('/duizhang/analys-all')
                 .then(function (req) {
                 req.body.statusCode === 200 && _this.myNotification('success', 'Success', req.body.msg);
                 req.body.statusCode !== 200 && _this.myNotification('error', 'Failed', req.body.msg);
@@ -56,7 +57,7 @@ var App = /** @class */ (function (_super) {
         };
         return _this;
     }
-    App.prototype.render = function () {
+    Duizhang.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "app-page" },
             React.createElement(Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
@@ -65,8 +66,24 @@ var App = /** @class */ (function (_super) {
                 React.createElement("p", null, "\u70B9\u51FB\u56FE\u6807\u4E0A\u4F20"),
                 React.createElement("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
             React.createElement("div", { className: "btn-block" },
+                React.createElement(antd_1.Button, null, "\u8BBE\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97"))));
+    };
+    return Duizhang;
+}(React.PureComponent));
+var App = /** @class */ (function (_super) {
+    __extends(App, _super);
+    function App(props) {
+        return _super.call(this, props) || this;
+    }
+    App.prototype.render = function () {
+        return React.createElement("div", null,
+            React.createElement(antd_1.Tabs, { defaultActiveKey: "1" },
+                React.createElement(TabPane, { tab: "对账", key: "1" },
+                    React.createElement(Duizhang, null)),
+                React.createElement(TabPane, { tab: "考勤", key: "2" },
+                    React.createElement("p", null, "asdasd"))));
     };
     return App;
 }(React.PureComponent));

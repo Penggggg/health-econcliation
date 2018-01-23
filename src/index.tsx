@@ -35,7 +35,7 @@ class Duizhang extends React.PureComponent<{ }, { }> {
   }
 
   analysAllFiles = ( ) => {
-    request.get('/files/analys-all')
+    request.get('/duizhang/analys-all')
            .then( req => {
              req.body.statusCode === 200 && this.myNotification( 'success', 'Success', req.body.msg );
              req.body.statusCode !== 200 && this.myNotification( 'error', 'Failed', req.body.msg );

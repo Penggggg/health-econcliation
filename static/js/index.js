@@ -3262,7 +3262,7 @@ var Duizhang = /** @class */ (function (_super) {
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
         _this.analysAllFiles = function () {
-            __WEBPACK_IMPORTED_MODULE_2_superagent__["get"]('/files/analys-all')
+            __WEBPACK_IMPORTED_MODULE_2_superagent__["get"]('/duizhang/analys-all')
                 .then(function (req) {
                 req.body.statusCode === 200 && _this.myNotification('success', 'Success', req.body.msg);
                 req.body.statusCode !== 200 && _this.myNotification('error', 'Failed', req.body.msg);

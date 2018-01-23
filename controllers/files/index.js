@@ -50,14 +50,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var fs = require("fs");
 var path = require("path");
-var xlsx = require("node-xlsx");
 var inversify_1 = require("inversify");
 var asyncBusboy = require("async-busboy");
 var routing_controllers_1 = require("routing-controllers");
 var DEBUG = process.env.NODE_ENV === 'development';
 var UploadCtrl = /** @class */ (function () {
     function UploadCtrl() {
-        this.operatores = ['陈燕', '龚文静', '黄清晖', '胡云凤', '熊萍萍', '徐子莹', '刘燕英'];
     }
     UploadCtrl.prototype.upload = function (ctx) {
         return __awaiter(this, void 0, void 0, function () {
@@ -119,67 +117,6 @@ var UploadCtrl = /** @class */ (function () {
             });
         });
     };
-    UploadCtrl.prototype.analysAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var filePosition_2, files_1, result;
-            return __generator(this, function (_a) {
-                try {
-                    filePosition_2 = path.join(__dirname, '../../upload/files');
-                    files_1 = fs.readdirSync(filePosition_2);
-                    // 1-1. 若文件为奇数，且不存在.DS_Store，则返回错误
-                    if ((files_1.length % 2 === 1 && !files_1.find(function (x) { return x === '.DS_Store'; })) || (files_1.length % 2 === 0 && files_1.find(function (x) { return x === '.DS_Store'; }))) {
-                        return [2 /*return*/, {
-                                statusCode: 400,
-                                msg: '文件数量错误，请重置后重新上传',
-                            }];
-                    }
-                    result = this.operatores.map(function (name) {
-                        var hasExisted = files_1.find(function (x) { return x.indexOf(name) !== -1; });
-                        // 若当天存在 当前操作人员的两份表格
-                        if (hasExisted) {
-                            var twoFiles = files_1.filter(function (x) { return x.indexOf(name) !== -1; });
-                            var billFormName = twoFiles.find(function (x) { return x.indexOf('账单') !== -1; });
-                            var reportFormName = twoFiles.find(function (x) { return x.indexOf('日报') !== -1; });
-                            var reportForm = xlsx.parse(filePosition_2 + "/" + reportFormName);
-                            var billForm = xlsx.parse(filePosition_2 + "/" + billFormName);
-                            // 【日报】（表头在第一行） - 表头、操作人员、微信、支付宝 下标
-                            var reportHeaderIndex = 0;
-                            var reportWxIndex = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '微信'; });
-                            var reportXfbIndex = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '支付宝'; });
-                            var reportOperatorIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '操作人员'; });
-                            var operatorRows = reportForm[0].data.filter(function (x) { return x[reportOperatorIndex_1] === name; });
-                            // 【账单】支付宝、微信的 表下表
-                            var billZfbIndex = billForm.findIndex(function (x) { return x.name === '支付宝'; });
-                            var billWxIndex = billForm.findIndex(function (x) { return x.name === '微信'; });
-                            ;
-                            // 【账单】（支付宝的表头第三行、微信的表头在五行）
-                            var billZfbHeaderIndex = 2;
-                            var billWxHeaderIndex = 4;
-                            // 拿到微信、支付宝的 收入、备注 下标
-                            var billZfbIncomeIndex = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '收入（+元）'; });
-                            var billZfbRemarkIndex = billForm[billZfbIndex].data[billZfbHeaderIndex].findIndex(function (x) { return x === '备注'; });
-                            var billWxIncomeIndex = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '交易金额(元)'; });
-                            var billWxRemarkIndex = billForm[billWxIndex].data[billWxHeaderIndex].findIndex(function (x) { return x === '备注'; });
-                            // 2-1. 核对支付宝的 - 返回true/false
-                            // 2-2. 核对微信的 - 返回true/false
-                        }
-                    });
-                    return [2 /*return*/, {
-                            msg: '分析成功',
-                            statusCode: 200
-                        }];
-                }
-                catch (e) {
-                    console.log(e);
-                    return [2 /*return*/, {
-                            msg: '重置失败，请联系男朋友',
-                            statusCode: 500
-                        }];
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
     __decorate([
         routing_controllers_1.Post('/upload'),
         __param(0, routing_controllers_1.Ctx()),
@@ -193,12 +130,6 @@ var UploadCtrl = /** @class */ (function () {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], UploadCtrl.prototype, "deleteAll", null);
-    __decorate([
-        routing_controllers_1.Get('/analys-all'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", Promise)
-    ], UploadCtrl.prototype, "analysAll", null);
     UploadCtrl = __decorate([
         routing_controllers_1.JsonController('/files'),
         inversify_1.injectable()

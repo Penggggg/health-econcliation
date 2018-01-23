@@ -21,6 +21,7 @@
     "koa-logs-full": "^0.0.8",
     "koa-router": "^7.3.0",
     "koa-static2": "^0.1.8",
+    "lru-cache": "^4.1.1",
     "node-xlsx": "^0.11.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/koa": "^2.0.43",
+    "@types/lru-cache": "^4.1.0",
     "@types/node": "^9.3.0",
     "@types/react": "^16.0.34",
     "@types/react-dom": "^16.0.3",
