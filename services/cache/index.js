@@ -15,13 +15,15 @@ var Cache = /** @class */ (function () {
     function Cache() {
         var _this = this;
         this.cacheOptions = {
-            maxAge: 30 * 24 * 60 * 60 * 1000
+            maxAge: 365 * 24 * 60 * 60 * 1000
         };
         this.getDuiZhang = function (key) {
             return _this.DuiZhangCache.get(key);
         };
         this.setDuiZhang = function (key, value) {
-            _this.DuiZhangCache.set(key, value);
+            console.log('----------');
+            console.log(value);
+            return _this.DuiZhangCache.set(key, value, 1000000);
         };
         this.DuiZhangCache = LRU(this.cacheOptions);
     }

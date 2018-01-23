@@ -7,7 +7,7 @@ export class Cache {
   private DuiZhangCache: LRU.Cache< any, any >;
 
   private cacheOptions = {
-    maxAge: 30 * 24 * 60 * 60 * 1000
+    maxAge: 365 * 24 * 60 * 60 * 1000
   };
 
   constructor( ) {
@@ -19,7 +19,9 @@ export class Cache {
   }
 
   public setDuiZhang = ( key, value ) => {
-    this.DuiZhangCache.set( key, value );
+    console.log('----------');
+    console.log( value )
+    return this.DuiZhangCache.set( key, value, 1000000 );
   }
 
 }

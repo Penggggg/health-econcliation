@@ -61,12 +61,35 @@ var DuiZhangCtrl = /** @class */ (function () {
         this.operatores = ['陈燕', '龚文静', '黄清晖', '胡云凤', '熊萍萍', '徐子莹', '刘燕英'];
         this.cache = Cache$;
         // 初始化 对账操作人员 - 科室 的映射关系
-        this.cache.setDuiZhang(this.OperatorChargeDepartment, []);
+        var list = Cache$.getDuiZhang(this.OperatorChargeDepartment);
+        !list && Cache$.setDuiZhang(this.OperatorChargeDepartment, []);
     }
     DuiZhangCtrl.prototype.list = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.cache.getDuiZhang(this.OperatorChargeDepartment)];
+            });
+        });
+    };
+    DuiZhangCtrl.prototype.set = function (body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var list, a;
+            return __generator(this, function (_a) {
+                try {
+                    list = body.list;
+                    a = this.cache.setDuiZhang(this.OperatorChargeDepartment, list);
+                    return [2 /*return*/, {
+                            statusCode: 200,
+                            msg: '设置成功'
+                        }];
+                }
+                catch (e) {
+                    return [2 /*return*/, {
+                            statusCode: 500,
+                            msg: '设置失败，请联系男朋友'
+                        }];
+                }
+                return [2 /*return*/];
             });
         });
     };
@@ -137,6 +160,13 @@ var DuiZhangCtrl = /** @class */ (function () {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], DuiZhangCtrl.prototype, "list", null);
+    __decorate([
+        routing_controllers_1.Put('/operator-charge-department-list'),
+        __param(0, routing_controllers_1.Body()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", Promise)
+    ], DuiZhangCtrl.prototype, "set", null);
     __decorate([
         routing_controllers_1.Get('/analys-all'),
         __metadata("design:type", Function),

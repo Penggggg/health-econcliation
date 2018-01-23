@@ -93,3 +93,588 @@
 [37mCompleted in 2ms  200
 
 [39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:51:20 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 31ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:51:21 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Tue Jan 23 2018 18:51:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 7ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:56:26 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 17ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:56:27 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:56:44 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 16ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:56:45 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:57:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:57:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:58:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 17ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:58:03 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 18:59:51 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 16ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 18:59:52 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:01:11 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 23ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:01:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:01:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:01:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:18 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 21ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:20 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:54 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 25ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:54 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:55 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:55 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:56 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:57 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:57 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:57 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:58 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:58 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:03:59 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:03:59 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:02 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:02 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:03 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:03 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:04:41 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 18ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:04:43 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:06:43 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 16ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:06:43 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:07:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 23ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:07:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:09:46 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 13ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:09:47 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:15:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 23ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:15:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:15:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:17:30 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 15ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:17:32 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:22:30 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 18ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:22:31 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:30:32 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 15ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:30:33 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:30:52 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 34ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:31:14 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:32:05 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 16ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:32:05 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:32:11 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 25ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:32:21 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:32:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:34:04 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 41ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:34:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:34:31 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 55ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:35:08 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 40ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:35:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:36:35 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 51ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:36:43 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:36:48 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:37:16 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:38:46 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 50ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:38:49 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:38:50 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:38:51 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:39:19 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 15ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:39:21 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:39:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:39:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:39:22 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:40:11 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 47ms  500
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:40:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  500
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:40:17 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  500
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:40:18 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 6ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:40:19 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:40:32 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  500
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:41:23 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 49ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:03 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 38ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:07 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:09 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:16 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:17 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:18 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:42:19 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:43:47 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 19ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:43:48 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:44:07 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 27ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:44:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 19:45:05 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 17ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Tue Jan 23 2018 19:45:06 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:45:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 28ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:45:16 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:45:21 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:46:07 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 43ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:46:14 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:46:52 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 48ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:46:55 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:46:58 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:47:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:47:14 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Tue Jan 23 2018 19:47:20 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m

@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as xlsx from 'node-xlsx';
 import { injectable, inject } from 'inversify';
 import { Cache } from '../../services/cache';
-import { JsonController, Post, Ctx, Get } from 'routing-controllers';
+import { JsonController, Put, Ctx, Get, Body } from 'routing-controllers';
 
 const DEBUG = process.env.NODE_ENV === 'development';
 
@@ -22,12 +22,33 @@ export class DuiZhangCtrl {
     @inject( Cache ) Cache$: Cache) {
       this.cache = Cache$;
       // 初始化 对账操作人员 - 科室 的映射关系
-      this.cache.setDuiZhang( this.OperatorChargeDepartment, [ ]);
+      const list = Cache$.getDuiZhang( this.OperatorChargeDepartment);
+      !list && Cache$.setDuiZhang( this.OperatorChargeDepartment, [ ]);
   }
 
   @Get('/operator-charge-department-list')
   async list( ) {
     return this.cache.getDuiZhang( this.OperatorChargeDepartment );
+  }
+
+  @Put('/operator-charge-department-list')
+  async set(
+      @Body( ) body ) {
+        try {
+
+          const list = body.list;
+          const a = this.cache.setDuiZhang( this.OperatorChargeDepartment, list );
+
+          return {
+            statusCode: 200,
+            msg: '设置成功'
+          };
+        } catch ( e ) {
+          return {
+            statusCode: 500,
+            msg: '设置失败，请联系男朋友'
+          };
+        }
   }
 
   @Get('/analys-all')
