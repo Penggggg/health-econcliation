@@ -1,0 +1,40 @@
+[37mStarted GET   / for ::1at Tue Jan 23 2018 11:34:09 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 13ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 11:35:48 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 13ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 11:37:46 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 15ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 11:38:03 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 17ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Tue Jan 23 2018 14:20:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 25ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Tue Jan 23 2018 14:20:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   / for ::1at Tue Jan 23 2018 14:47:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 15ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Tue Jan 23 2018 14:47:05 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  200
+
+[39m

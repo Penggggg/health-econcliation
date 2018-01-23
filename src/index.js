@@ -40,6 +40,14 @@ var App = /** @class */ (function (_super) {
             })
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
+        _this.analysAllFiles = function () {
+            request.get('/files/analys-all')
+                .then(function (req) {
+                req.body.statusCode === 200 && _this.myNotification('success', 'Success', req.body.msg);
+                req.body.statusCode !== 200 && _this.myNotification('error', 'Failed', req.body.msg);
+            })
+                .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
+        };
         _this.myNotification = function (type, msg, des) {
             antd_1.notification[type]({
                 message: msg,
@@ -58,7 +66,7 @@ var App = /** @class */ (function (_super) {
                 React.createElement("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
             React.createElement("div", { className: "btn-block" },
                 React.createElement(antd_1.Button, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
-                React.createElement(antd_1.Button, { type: "primary" }, "\u8BA1\u7B97"))));
+                React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97"))));
     };
     return App;
 }(React.PureComponent));
