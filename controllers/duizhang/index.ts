@@ -82,7 +82,10 @@ export class DuiZhangCtrl {
       }
 
       // 2. 【日报】一个汇总表
-      let summaryFormItems: any[] = [ ];
+      let summaryFormItems: any[ ] = [ ];
+      let theBillZfbIncomeIndex = 0;
+      let theBillWxIncomeIndex = 0;
+
 
       // 3. 根据操作人员操作两张表单（日报、账单）, name为当前操作人员名字
       const result = this.operatores.map( name => {
@@ -116,6 +119,9 @@ export class DuiZhangCtrl {
           const reportWxIndex = reportForm[ 0 ].data[ reportHeaderIndex ].findIndex( x => x === '微信');
           const reportZfbIndex = reportForm[ 0 ].data[ reportHeaderIndex ].findIndex( x => x === '支付宝');
           const reportOperatorIndex = reportForm[ 0 ].data[ reportHeaderIndex ].findIndex( x => x === '操作人员');
+
+          theBillWxIncomeIndex = reportWxIndex;
+          theBillZfbIncomeIndex = reportZfbIndex;
 
           // 【账单】支付宝、微信的 表 的下标
           const billZfbIndex = billForm.findIndex( x => x.name === '支付宝');
@@ -156,23 +162,24 @@ export class DuiZhangCtrl {
           const wxRows = billForm[ billWxIndex ].data.filter( x => departments.find( dname => dname ===  x[ billWxRemarkIndex ]))
 
           // 【日报／支付宝】汇总
-          const reportFormZfbTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportZfbIndex ]) * 100 + pre, 0 ) / 100;
+          const reportFormZfbTotal = operatorRows.reduce(( pre, next ) => ( next[ reportZfbIndex ] ? Number( next[ reportZfbIndex ]) * 100 : 0 ) + pre, 0 ) / 100;
 
           // 【日报／微信】汇总
-         const reportFormWxTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportWxIndex ]) * 100 + pre, 0 ) / 100;
+         const reportFormWxTotal = operatorRows.reduce(( pre, next ) => ( next[ reportWxIndex ] ? Number( next[ reportWxIndex ]) * 100 : 0 ) + pre, 0 ) / 100;
 
           // 【账单／支付宝】汇总
-          const billFormZfbTotal = zfbRows.reduce(( pre, next ) => Number( next[ billZfbIncomeIndex ]) * 100 + pre, 0 ) / 100;
+          const billFormZfbTotal = zfbRows.reduce(( pre, next ) => ( next[ billZfbIncomeIndex ] ? Number( next[ billZfbIncomeIndex ]) * 100 : 0 ) + pre, 0 ) / 100;
 
           // 【账单／微信】汇总
-          const billFormWxTotal = wxRows.reduce(( pre, next ) => Number( next[ billWxIncomeIndex ]) * 100 + pre, 0 ) / 100;
+          const billFormWxTotal = wxRows.reduce(( pre, next ) => ( next[ billWxIncomeIndex ] ? Number( next[ billWxIncomeIndex ]) * 100 : 0 ) + pre, 0 ) / 100;
 
-          // 【日报／汇总】表头
+          //【日报／汇总】表头
           const reportFormHeader = reportForm[ 0 ].data[ 0 ];
           if ( summaryFormItems.length === 0 ) {
             summaryFormItems.push( reportFormHeader );
           }
 
+          //【日报／汇总】汇总所有提交者所负责的条目
           summaryFormItems = [ ...summaryFormItems, ...operatorRows ];
 
           // 验证结果
@@ -217,7 +224,7 @@ export class DuiZhangCtrl {
 
             // 日报金额不为0，账单金额为0( 未填写备注 )
             if ( wxRows.length === 0 ) {
-              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元，但【账单／支付宝】表格的中，没有科室为【【${departments.join('、')}】】的备注，请补上备注后重现提交。`;
+              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元，但【账单／微信】表格的中，没有科室为【${departments.join('、')}】的备注，请补上备注后重现提交。`;
             // 日报金额为0，账单金额不为0
             } else {
               wxResult = `审核${ reportFormWxTotal === billFormWxTotal ? '通过' : '失败' }，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元${ reportFormWxTotal === billFormWxTotal ? '相等' : '不相等' }。她当天负责的科室为【${departments.join('、')}】。`;
@@ -258,6 +265,20 @@ export class DuiZhangCtrl {
 
       // 2-1. 【日报】生成汇总
       if ( resultFinal.length > 0 ) {
+
+        //【日报／汇总】支付宝合计
+        let summaryZfb = ( summaryFormItems.slice(1).reduce(( pre, next ) => ( next[ theBillZfbIncomeIndex ] ? Number( next[ theBillZfbIncomeIndex ]) * 100 : 0 ) + pre, 0 )) / 100;
+
+        //【日报／汇总】微信合计
+        let summaryWx = ( summaryFormItems.slice(1).reduce(( pre, next ) => ( next[ theBillWxIncomeIndex ] ? Number( next[ theBillWxIncomeIndex ]) * 100 : 0 ) + pre, 0 )) / 100;
+
+        let summaryTotal: any[] = [ ];
+        summaryTotal[ theBillZfbIncomeIndex ] = `合计: ${summaryZfb}元`;
+        summaryTotal[ theBillWxIncomeIndex ] = `合计: ${summaryWx}元`;
+
+        //【日报／汇总】合计
+        summaryFormItems[ summaryFormItems.length ] = summaryTotal;
+
         const summaryForm = [
           {
             name: 'sheet1',
@@ -286,6 +307,7 @@ export class DuiZhangCtrl {
       };
 
     } catch ( e ) {
+      console.log( e );
       return {
         msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
         statusCode: 500,

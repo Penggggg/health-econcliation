@@ -112,7 +112,7 @@ var DuiZhangCtrl = /** @class */ (function () {
     DuiZhangCtrl.prototype.analysAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var filePosition_1, files_1, summaryFormItems_1, result, resultFinal, summaryForm, summaryFormBuffer, savePath;
+            var filePosition_1, files_1, summaryFormItems_1, theBillZfbIncomeIndex_1, theBillWxIncomeIndex_1, result, resultFinal, summaryZfb, summaryWx, summaryTotal, summaryForm, summaryFormBuffer, savePath;
             return __generator(this, function (_a) {
                 try {
                     filePosition_1 = path.join(__dirname, '../../upload/files');
@@ -125,6 +125,8 @@ var DuiZhangCtrl = /** @class */ (function () {
                             }];
                     }
                     summaryFormItems_1 = [];
+                    theBillZfbIncomeIndex_1 = 0;
+                    theBillWxIncomeIndex_1 = 0;
                     result = this.operatores.map(function (name) {
                         var onlyOneFile = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 1;
                         var hasExisted = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 2;
@@ -150,6 +152,8 @@ var DuiZhangCtrl = /** @class */ (function () {
                             var reportWxIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '微信'; });
                             var reportZfbIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '支付宝'; });
                             var reportOperatorIndex_1 = reportForm[0].data[reportHeaderIndex].findIndex(function (x) { return x === '操作人员'; });
+                            theBillWxIncomeIndex_1 = reportWxIndex_1;
+                            theBillZfbIncomeIndex_1 = reportZfbIndex_1;
                             // 【账单】支付宝、微信的 表 的下标
                             var billZfbIndex = billForm.findIndex(function (x) { return x.name === '支付宝'; });
                             var billWxIndex = billForm.findIndex(function (x) { return x.name === '微信'; });
@@ -183,18 +187,19 @@ var DuiZhangCtrl = /** @class */ (function () {
                             // 【账单-微信】当前操作人员负责全部科室的所有条目
                             var wxRows = billForm[billWxIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billWxRemarkIndex_1]; }); });
                             // 【日报／支付宝】汇总
-                            var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportZfbIndex_1]) * 100 + pre; }, 0) / 100;
+                            var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return (next[reportZfbIndex_1] ? Number(next[reportZfbIndex_1]) * 100 : 0) + pre; }, 0) / 100;
                             // 【日报／微信】汇总
-                            var reportFormWxTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportWxIndex_1]) * 100 + pre; }, 0) / 100;
+                            var reportFormWxTotal = operatorRows.reduce(function (pre, next) { return (next[reportWxIndex_1] ? Number(next[reportWxIndex_1]) * 100 : 0) + pre; }, 0) / 100;
                             // 【账单／支付宝】汇总
-                            var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return Number(next[billZfbIncomeIndex_1]) * 100 + pre; }, 0) / 100;
+                            var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return (next[billZfbIncomeIndex_1] ? Number(next[billZfbIncomeIndex_1]) * 100 : 0) + pre; }, 0) / 100;
                             // 【账单／微信】汇总
-                            var billFormWxTotal = wxRows.reduce(function (pre, next) { return Number(next[billWxIncomeIndex_1]) * 100 + pre; }, 0) / 100;
-                            // 【日报／汇总】表头
+                            var billFormWxTotal = wxRows.reduce(function (pre, next) { return (next[billWxIncomeIndex_1] ? Number(next[billWxIncomeIndex_1]) * 100 : 0) + pre; }, 0) / 100;
+                            //【日报／汇总】表头
                             var reportFormHeader = reportForm[0].data[0];
                             if (summaryFormItems_1.length === 0) {
                                 summaryFormItems_1.push(reportFormHeader);
                             }
+                            //【日报／汇总】汇总所有提交者所负责的条目
                             summaryFormItems_1 = summaryFormItems_1.concat(operatorRows);
                             // 验证结果
                             var zfbResult = '';
@@ -234,7 +239,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                             else {
                                 // 日报金额不为0，账单金额为0( 未填写备注 )
                                 if (wxRows.length === 0) {
-                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u652F\u4ED8\u5B9D\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010\u3010" + departments_1.join('、') + "\u3011\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
+                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u5FAE\u4FE1\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
                                     // 日报金额为0，账单金额不为0
                                 }
                                 else {
@@ -270,6 +275,13 @@ var DuiZhangCtrl = /** @class */ (function () {
                     resultFinal = result.filter(function (x) { return x !== undefined; });
                     // 2-1. 【日报】生成汇总
                     if (resultFinal.length > 0) {
+                        summaryZfb = (summaryFormItems_1.slice(1).reduce(function (pre, next) { return (next[theBillZfbIncomeIndex_1] ? Number(next[theBillZfbIncomeIndex_1]) * 100 : 0) + pre; }, 0)) / 100;
+                        summaryWx = (summaryFormItems_1.slice(1).reduce(function (pre, next) { return (next[theBillWxIncomeIndex_1] ? Number(next[theBillWxIncomeIndex_1]) * 100 : 0) + pre; }, 0)) / 100;
+                        summaryTotal = [];
+                        summaryTotal[theBillZfbIncomeIndex_1] = "\u5408\u8BA1: " + summaryZfb + "\u5143";
+                        summaryTotal[theBillWxIncomeIndex_1] = "\u5408\u8BA1: " + summaryWx + "\u5143";
+                        //【日报／汇总】合计
+                        summaryFormItems_1[summaryFormItems_1.length] = summaryTotal;
                         summaryForm = [
                             {
                                 name: 'sheet1',
@@ -293,6 +305,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                         }];
                 }
                 catch (e) {
+                    console.log(e);
                     return [2 /*return*/, {
                             msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
                             statusCode: 500,
