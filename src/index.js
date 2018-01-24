@@ -182,6 +182,8 @@ var Duizhang = /** @class */ (function (_super) {
                             React.createElement(antd_1.Icon, { type: "check-circle", className: "my-icon success" })),
                         li.type === 'wx' ? '【微信】' : '【支付宝】',
                         li.text)); })))); })),
+            result.length === 0 &&
+                React.createElement("a", null, "\u70B9\u51FB\u4E0B\u8F7D"),
             React.createElement(antd_1.Modal, { title: "设置操作人员与科室", visible: this.state.showModal1, onOk: this.submitOperatorMapDepartment, onCancel: function () { return _this.setState({ showModal1: false }); } },
                 React.createElement("p", null, "Some contents..."),
                 React.createElement(TextArea, { value: relationship, placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));

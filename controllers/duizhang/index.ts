@@ -14,7 +14,7 @@ const DEBUG = process.env.NODE_ENV === 'development';
 export class DuiZhangCtrl {
 
   private readonly OperatorChargeDepartment = 'OperatorMapDepartment'
-  private readonly operatores = ['陈燕','龚文静','黄清晖','胡云凤','熊萍萍','徐子莹','刘燕英'];
+  private readonly operatores = ['陈燕','龚文静','黄清晖','胡云凤','熊萍萍','徐子莹','刘燕英','吴凯茵'];
 
   private cache: Cache;
 

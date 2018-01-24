@@ -58,7 +58,7 @@ var DEBUG = process.env.NODE_ENV === 'development';
 var DuiZhangCtrl = /** @class */ (function () {
     function DuiZhangCtrl(Cache$) {
         this.OperatorChargeDepartment = 'OperatorMapDepartment';
-        this.operatores = ['陈燕', '龚文静', '黄清晖', '胡云凤', '熊萍萍', '徐子莹', '刘燕英'];
+        this.operatores = ['陈燕', '龚文静', '黄清晖', '胡云凤', '熊萍萍', '徐子莹', '刘燕英', '吴凯茵'];
         this.cache = Cache$;
         // 初始化 对账操作人员 - 科室 的映射关系
         var list = Cache$.getDuiZhang(this.OperatorChargeDepartment);

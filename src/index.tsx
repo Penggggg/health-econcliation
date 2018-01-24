@@ -233,6 +233,12 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
           </ul>
         }
 
+        {
+          result.length === 0 &&
+          <a>点击下载</a>
+        }
+        
+
         <Modal
           title="设置操作人员与科室"
           visible={ this.state.showModal1 }
