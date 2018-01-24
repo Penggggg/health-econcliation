@@ -1133,3 +1133,313 @@
 [37mCompleted in 415ms  200
 
 [39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 14:54:35 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 14ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:54:36 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 14:54:40 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 6ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:54:43 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 35ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 14:54:47 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:54:52 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 14:56:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 18ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:56:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 14:56:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 14:56:14 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:56:16 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 43ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:56:50 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 75ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 14:57:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 23ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:57:18 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 52ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 14:58:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 21ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 14:58:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:58:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 14:58:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 14:58:14 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 14:58:19 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 49ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 15:03:00 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 26ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:03:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 15:03:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 15:03:08 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 7ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:03:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 39ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 15:22:58 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 26ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:23:01 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 6ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 15:40:30 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 35ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:40:31 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 7ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:41:13 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 24ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 21ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 6ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 6ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:41:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/analys-all for ::1at Wed Jan 24 2018 15:41:39 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 15:41:53 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 0ms  404
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 15:42:07 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 15:42:07 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:42:09 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 15:42:11 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 15:42:12 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 4ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:42:29 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted GET   /duizhang/analys-all for ::1at Wed Jan 24 2018 15:42:37 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2765ms  200
+
+[39m
+[37mStarted GET   / for ::1at Wed Jan 24 2018 15:46:54 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 39ms  200
+
+[39m
+[37mStarted GET   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:46:56 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 5ms  200
+
+[39m
+[37mStarted GET   /static/css/antd.min.css.map for ::1at Wed Jan 24 2018 15:46:56 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 1ms  404
+
+[39m
+[37mStarted GET   /files/delete-all for ::1at Wed Jan 24 2018 15:46:58 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted PUT   /duizhang/operator-charge-department-list for ::1at Wed Jan 24 2018 15:47:10 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 19ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 17ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 11ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 7ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 2ms  200
+
+[39m
+[37mStarted POST   /files/upload for ::1at Wed Jan 24 2018 15:47:28 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3ms  200
+
+[39m
+[37mStarted GET   /duizhang/analys-all for ::1at Wed Jan 24 2018 15:47:35 GMT+0800 (CST)[39m
+[37m  [35mquery[37m:{}[39m
+[37mCompleted in 3247ms  200
+
+[39m

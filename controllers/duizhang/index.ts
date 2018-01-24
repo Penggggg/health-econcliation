@@ -49,6 +49,7 @@ export class DuiZhangCtrl {
         try {
 
           const list = body.list;
+          const filePosition = path.join( __dirname, '../../upload/files' );
           const a = this.cache.setDuiZhang( this.OperatorChargeDepartment, list );
 
           return {
@@ -56,6 +57,7 @@ export class DuiZhangCtrl {
             msg: '设置成功'
           };
         } catch ( e ) {
+          console.log( e );
           return {
             statusCode: 500,
             msg: '设置失败，请联系男朋友'
@@ -79,7 +81,10 @@ export class DuiZhangCtrl {
         }
       }
 
-      // 2. 根据操作人员寻找两张表单（日报、账单）, name为当前操作人员名字
+      // 2. 【日报】一个汇总表
+      let summaryFormItems: any[] = [ ];
+
+      // 3. 根据操作人员操作两张表单（日报、账单）, name为当前操作人员名字
       const result = this.operatores.map( name => {
 
         const onlyOneFile = files.filter( x => x.indexOf( name ) === 0 ).length === 1;
@@ -96,6 +101,7 @@ export class DuiZhangCtrl {
           };
         }
 
+        
         // 若当天存在 当前操作人员的 两份表格
         if ( hasExisted ) {
 
@@ -160,6 +166,14 @@ export class DuiZhangCtrl {
 
           // 【账单／微信】汇总
           const billFormWxTotal = wxRows.reduce(( pre, next ) => Number( next[ billWxIncomeIndex ]) * 100 + pre, 0 ) / 100;
+
+          // 【日报／汇总】表头
+          const reportFormHeader = reportForm[ 0 ].data[ 0 ];
+          if ( summaryFormItems.length === 0 ) {
+            summaryFormItems.push( reportFormHeader );
+          }
+
+          summaryFormItems = [ ...summaryFormItems, ...operatorRows ];
 
           // 验证结果
           let zfbResult = '';
@@ -240,6 +254,17 @@ export class DuiZhangCtrl {
 
       });
 
+      // 2-1. 【日报】生成汇总
+      const summaryForm = [
+        {
+          name: 'sheet1',
+          data: summaryFormItems
+        }
+      ]
+
+      const summaryFormBuffer = xlsx.build( summaryForm );
+      fs.writeFileSync( `${filePosition}/汇总表.xlsx`, summaryFormBuffer );
+
       const resultFinal = result.filter( x => x!== undefined );
 
       return {
@@ -250,7 +275,7 @@ export class DuiZhangCtrl {
 
     } catch ( e ) {
       return {
-        msg: '重置失败，请联系男朋友',
+        msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
         statusCode: 500
       };
     }

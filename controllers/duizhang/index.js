@@ -87,10 +87,11 @@ var DuiZhangCtrl = /** @class */ (function () {
     };
     DuiZhangCtrl.prototype.set = function (body) {
         return __awaiter(this, void 0, void 0, function () {
-            var list, a;
+            var list, filePosition, a;
             return __generator(this, function (_a) {
                 try {
                     list = body.list;
+                    filePosition = path.join(__dirname, '../../upload/files');
                     a = this.cache.setDuiZhang(this.OperatorChargeDepartment, list);
                     return [2 /*return*/, {
                             statusCode: 200,
@@ -98,6 +99,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                         }];
                 }
                 catch (e) {
+                    console.log(e);
                     return [2 /*return*/, {
                             statusCode: 500,
                             msg: '设置失败，请联系男朋友'
@@ -110,7 +112,7 @@ var DuiZhangCtrl = /** @class */ (function () {
     DuiZhangCtrl.prototype.analysAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var filePosition_1, files_1, result, resultFinal;
+            var filePosition_1, files_1, summaryFormItems_1, result, summaryForm, summaryFormBuffer, resultFinal;
             return __generator(this, function (_a) {
                 try {
                     filePosition_1 = path.join(__dirname, '../../upload/files');
@@ -122,6 +124,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                                 msg: '文件数量错误，请关闭所有请重置后重新上传',
                             }];
                     }
+                    summaryFormItems_1 = [];
                     result = this.operatores.map(function (name) {
                         var onlyOneFile = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 1;
                         var hasExisted = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 2;
@@ -187,6 +190,12 @@ var DuiZhangCtrl = /** @class */ (function () {
                             var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return Number(next[billZfbIncomeIndex_1]) * 100 + pre; }, 0) / 100;
                             // 【账单／微信】汇总
                             var billFormWxTotal = wxRows.reduce(function (pre, next) { return Number(next[billWxIncomeIndex_1]) * 100 + pre; }, 0) / 100;
+                            // 【日报／汇总】表头
+                            var reportFormHeader = reportForm[0].data[0];
+                            if (summaryFormItems_1.length === 0) {
+                                summaryFormItems_1.push(reportFormHeader);
+                            }
+                            summaryFormItems_1 = summaryFormItems_1.concat(operatorRows);
                             // 验证结果
                             var zfbResult = '';
                             var wxResult = '';
@@ -258,6 +267,14 @@ var DuiZhangCtrl = /** @class */ (function () {
                         }
                         return undefined;
                     });
+                    summaryForm = [
+                        {
+                            name: 'sheet1',
+                            data: summaryFormItems_1
+                        }
+                    ];
+                    summaryFormBuffer = xlsx.build(summaryForm);
+                    fs.writeFileSync(filePosition_1 + "/\u6C47\u603B\u8868.xlsx", summaryFormBuffer);
                     resultFinal = result.filter(function (x) { return x !== undefined; });
                     return [2 /*return*/, {
                             msg: '分析成功',
@@ -267,7 +284,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                 }
                 catch (e) {
                     return [2 /*return*/, {
-                            msg: '重置失败，请联系男朋友',
+                            msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
                             statusCode: 500
                         }];
                 }
