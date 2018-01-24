@@ -51,26 +51,9 @@ var Duizhang = /** @class */ (function (_super) {
                 var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
-                // const result = data.map( metaData => {
-                //   const { zfbResult, wxResult } = metaData;
-                //   let obj = { };
-                //   obj['name'] = metaData.name;
-                //   obj['list'] = [
-                //     {
-                //       type: 'zfb',
-                //       status: zfbResult.result ? 'success' : 'fail',
-                //       text: `审核${ zfbResult.result ? '通过' : '失败' }：【日报金额】【${zfbResult.reportFormZfbTotal}元】与【账单金额】【${zfbResult.billFormZfbTotal}元】${ zfbResult.result ? '相等' : '不相等' }`
-                //     },
-                //     {
-                //       type: 'wx',
-                //       status: wxResult.result ? 'success' : 'fail',
-                //       text: `审核${ wxResult.result ? '通过' : '失败' }：【日报金额】【${wxResult.reportFormWxTotal}元】与【账单金额】【${wxResult.billFormWxTotal}元】${ wxResult.result ? '相等' : '不相等' }`
-                //     }
-                //   ];
-                //   return obj;
-                // });
-                // this.setState({ result });
-                // console.log( result );
+                _this.setState({
+                    result: data
+                });
             })
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
@@ -171,20 +154,22 @@ var Duizhang = /** @class */ (function (_super) {
                 React.createElement(antd_1.Button, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
                 React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97")),
-            result.length !== 0 &&
-                React.createElement("ul", { className: "result-list" }, result.map(function (item, key) { return (React.createElement("li", { key: key, style: { marginBottom: 20 } },
-                    React.createElement("div", { className: "title" },
-                        React.createElement("span", null, item.name)),
-                    React.createElement("ul", null, item.list.map(function (li, k) { return (React.createElement("li", { key: k },
-                        React.createElement("span", null, li.status === 'fail' ?
-                            React.createElement(antd_1.Icon, { type: "close-circle", className: "my-icon error" }) :
-                            React.createElement(antd_1.Icon, { type: "check-circle", className: "my-icon success" })),
-                        li.type === 'wx' ? '【微信】' : '【支付宝】',
-                        li.text)); })))); })),
-            result.length === 0 &&
+            React.createElement("div", { className: "result-block" }, result.length !== 0 &&
+                React.createElement(antd_1.Card, { title: "\u5BA1\u6838\u7ED3\u679C", style: { width: '100%' } },
+                    React.createElement(antd_1.List, { itemLayout: 'horizontal', dataSource: result, renderItem: function (item) { return (React.createElement(antd_1.List.Item, null,
+                            React.createElement(antd_1.List.Item.Meta, { avatar: React.createElement(antd_1.Avatar, { src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" }), title: React.createElement("a", { style: { fontSize: 18 } },
+                                    item.name,
+                                    " ",
+                                    React.createElement("span", { style: { fontSize: 16 } }, item.summary)), description: item.list.map(function (li, key) { return (React.createElement("p", { key: key },
+                                    li.status ?
+                                        React.createElement(antd_1.Icon, { type: "check-circle", style: { color: '#52c41a' } }) :
+                                        React.createElement(antd_1.Icon, { type: "close-circle", style: { color: '#f5222d' } }),
+                                    li.type === 'wx' ? '【微信】' : '【支付宝】',
+                                    li.text)); }) }))); } }))),
+            (result.length !== 0 && !result.find(function (x) { return x.allPass === false; })) &&
                 React.createElement("a", null, "\u70B9\u51FB\u4E0B\u8F7D"),
             React.createElement(antd_1.Modal, { title: "设置操作人员与科室", visible: this.state.showModal1, onOk: this.submitOperatorMapDepartment, onCancel: function () { return _this.setState({ showModal1: false }); } },
-                React.createElement("p", null, "Some contents..."),
+                React.createElement("p", null, "\u683C\u5F0F\u4E3A\uFF1A\u64CD\u4F5C\u4EBA\u5458-\u79D1\u5BA4"),
                 React.createElement(TextArea, { value: relationship, placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));
     };
     return Duizhang;

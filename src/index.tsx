@@ -2,7 +2,7 @@ import './index.less';
 import * as React from 'react';
 import * as request from 'superagent';
 import * as ReactDom from 'react-dom';
-import { Upload, message, Icon, Button, notification, Tabs, Modal, Input } from 'antd';
+import { Upload, message, Icon, Button, notification, Tabs, Modal, Input, List, Avatar, Card } from 'antd';
 
 const Dragger = Upload.Dragger;
 const TabPane = Tabs.TabPane;
@@ -52,37 +52,12 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
   analysAllFiles = ( ) => {
     request.get('/duizhang/analys-all')
            .then( req => {
-
               const { statusCode, msg, data } = req.body;
               statusCode === 200 && this.myNotification( 'success', 'Success', msg );
               statusCode !== 200 && this.myNotification( 'error', 'Failed', msg );
-
-              // const result = data.map( metaData => {
-
-              //   const { zfbResult, wxResult } = metaData;
-              //   let obj = { };
-              //   obj['name'] = metaData.name;
-              //   obj['list'] = [
-              //     {
-              //       type: 'zfb',
-              //       status: zfbResult.result ? 'success' : 'fail',
-              //       text: `审核${ zfbResult.result ? '通过' : '失败' }：【日报金额】【${zfbResult.reportFormZfbTotal}元】与【账单金额】【${zfbResult.billFormZfbTotal}元】${ zfbResult.result ? '相等' : '不相等' }`
-              //     },
-              //     {
-              //       type: 'wx',
-              //       status: wxResult.result ? 'success' : 'fail',
-              //       text: `审核${ wxResult.result ? '通过' : '失败' }：【日报金额】【${wxResult.reportFormWxTotal}元】与【账单金额】【${wxResult.billFormWxTotal}元】${ wxResult.result ? '相等' : '不相等' }`
-       
-              //     }
-              //   ];
-
-              //   return obj;
-
-              // });
-
-              // this.setState({ result });
-              // console.log( result );
-
+              this.setState({
+                result: data
+              });
            })
            .catch(( ) => this.myNotification( 'error', 'Failed', '重置失败，请联系男朋友' ));
   }
@@ -201,40 +176,43 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
           <Button onClick={ this.analysAllFiles } type="primary">计算</Button>
         </div>
 
+        <div className="result-block">
         {
-          result.length !== 0 &&
-          <ul className="result-list">
-            {
-              result.map(( item, key ) => (
-                <li key={ key } style={{ marginBottom: 20 }}>
-                  <div className="title">
-                    <span>{ item.name }</span>
-                  </div>
-                  <ul>
-                    {
-                      item.list.map(( li, k )=> (
-                        <li key={ k }>
-                          <span>
+           result.length !== 0 &&
+           <Card title={`审核结果`} style={{ width: '100%' }}>
+              <List
+                itemLayout='horizontal'
+                dataSource={ result }
+                renderItem={ item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={ <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                      title={ <a style={{ fontSize: 18 }}>{ item.name } <span style={{ fontSize: 16 }}>{ item.summary }</span></a>}
+                      description={
+                        item.list.map(( li, key ) => (
+                          <p key={ key }>
                             {
-                              li.status === 'fail' ?
-                                <Icon type="close-circle" className="my-icon error" /> :
-                                <Icon type="check-circle" className="my-icon success" />
+                              li.status ?
+                                <Icon type="check-circle" style={{ color: '#52c41a' }} /> :
+                                <Icon type="close-circle" style={{ color: '#f5222d' }} />
                             }
-                          </span>
-                          { li.type === 'wx' ? '【微信】' : '【支付宝】' }{ li.text }
-                        </li>
-                      ))
-                    }
-                  </ul>
-                </li>
-              ))
-            }
-          </ul>
+                            { li.type === 'wx' ? '【微信】' : '【支付宝】' }
+                            { li.text }
+                          </p>
+                        ))
+                      }
+                    />
+                  </List.Item>
+                )}
+              > 
+              </List>
+            </Card>
         }
+        </div>
 
         {
-          result.length === 0 &&
-          <a>点击下载</a>
+          ( result.length !== 0 && !result.find( x => x.allPass === false )) &&
+            <a>点击下载</a>
         }
         
 
@@ -244,7 +222,7 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
           onOk={ this.submitOperatorMapDepartment }
           onCancel={( ) => this.setState({ showModal1: false })}
         >
-          <p>Some contents...</p>
+          <p>格式为：操作人员-科室</p>
 
           <TextArea
             value={ relationship }
@@ -286,8 +264,13 @@ interface DuiZhangState {
   // 结果列表
   result: {
     name: string
+    allPass: boolean,
+    summary: string
+    errMsg: string
     list: {
       text: string
+      billFormTotal: number
+      reportFormTotal: number
       type: 'zfb' | 'wx'
       status: 'success' | 'fail'
     }[ ]

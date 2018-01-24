@@ -194,11 +194,11 @@ var DuiZhangCtrl = /** @class */ (function () {
                             if (reportFormZfbTotal === 0) {
                                 // 日报金额为0，账单金额为0
                                 if (zfbRows.length === 0) {
-                                    zfbResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    zfbResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                     // 日报金额为0，账单金额不为0
                                 }
                                 else {
-                                    zfbResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    zfbResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                 }
                             }
                             else {
@@ -208,28 +208,28 @@ var DuiZhangCtrl = /** @class */ (function () {
                                     // 日报金额不为0，账单金额为0
                                 }
                                 else {
-                                    zfbResult = "\u5BA1\u6838" + (reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143" + (reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、');
+                                    zfbResult = "\u5BA1\u6838" + (reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143" + (reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                 }
                             }
                             //【校验-微信】
                             if (reportFormWxTotal === 0) {
                                 // 日报金额为0，账单金额为0
                                 if (wxRows.length === 0) {
-                                    wxResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    wxResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                     // 日报金额为0，账单金额不为0
                                 }
                                 else {
-                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                 }
                             }
                             else {
                                 // 日报金额不为0，账单金额为0( 未填写备注 )
                                 if (wxRows.length === 0) {
-                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u652F\u4ED8\u5B9D\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
+                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u652F\u4ED8\u5B9D\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010\u3010" + departments_1.join('、') + "\u3011\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
                                     // 日报金额为0，账单金额不为0
                                 }
                                 else {
-                                    wxResult = "\u5BA1\u6838" + (reportFormWxTotal === billFormWxTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143" + (reportFormWxTotal === billFormWxTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、');
+                                    wxResult = "\u5BA1\u6838" + (reportFormWxTotal === billFormWxTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143" + (reportFormWxTotal === billFormWxTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u3002";
                                 }
                             }
                             // 验证结果

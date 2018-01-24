@@ -170,10 +170,10 @@ export class DuiZhangCtrl {
 
             // 日报金额为0，账单金额为0
             if ( zfbRows.length === 0 ) {
-              zfbResult = `审核通过，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元相等。她当天负责的科室为${departments.join('、')}。`;
+              zfbResult = `审核通过，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元相等。她当天负责的科室为【${departments.join('、')}】。`;
             // 日报金额为0，账单金额不为0
             } else {
-              zfbResult = `审核失败，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元不相等，请重新核对。她当天负责的科室为${departments.join('、')}。`
+              zfbResult = `审核失败，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元不相等，请重新核对。她当天负责的科室为【${departments.join('、')}】。`
             }
 
           } else {
@@ -183,7 +183,7 @@ export class DuiZhangCtrl {
               zfbResult = `审核失败，【日报金额】${reportFormZfbTotal}元，但【账单／支付宝】表格的中，没有科室为【${departments.join('、')}】的备注，请补上备注后重现提交。`;
             // 日报金额不为0，账单金额为0
             } else {
-              zfbResult = `审核${ reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败' }，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元${ reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等' }。她当天负责的科室为${departments.join('、')}`;
+              zfbResult = `审核${ reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败' }，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元${ reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等' }。她当天负责的科室为【${departments.join('、')}】。`;
             }
 
           }
@@ -193,20 +193,20 @@ export class DuiZhangCtrl {
 
             // 日报金额为0，账单金额为0
             if ( wxRows.length === 0 ) {
-              wxResult = `审核通过，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元相等。她当天负责的科室为${departments.join('、')}。`;
+              wxResult = `审核通过，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元相等。她当天负责的科室为【${departments.join('、')}】。`;
             // 日报金额为0，账单金额不为0
             } else {
-              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元不相等，请重新核对。她当天负责的科室为${departments.join('、')}。`
+              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元不相等，请重新核对。她当天负责的科室为【${departments.join('、')}】。`
             }
 
           } else {
 
             // 日报金额不为0，账单金额为0( 未填写备注 )
             if ( wxRows.length === 0 ) {
-              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元，但【账单／支付宝】表格的中，没有科室为【${departments.join('、')}】的备注，请补上备注后重现提交。`;
+              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元，但【账单／支付宝】表格的中，没有科室为【【${departments.join('、')}】】的备注，请补上备注后重现提交。`;
             // 日报金额为0，账单金额不为0
             } else {
-              wxResult = `审核${ reportFormWxTotal === billFormWxTotal ? '通过' : '失败' }，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元${ reportFormWxTotal === billFormWxTotal ? '相等' : '不相等' }。她当天负责的科室为${departments.join('、')}`;
+              wxResult = `审核${ reportFormWxTotal === billFormWxTotal ? '通过' : '失败' }，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元${ reportFormWxTotal === billFormWxTotal ? '相等' : '不相等' }。她当天负责的科室为【${departments.join('、')}】。`;
             }
 
           }
