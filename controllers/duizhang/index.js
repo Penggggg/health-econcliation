@@ -123,8 +123,19 @@ var DuiZhangCtrl = /** @class */ (function () {
                             }];
                     }
                     result = this.operatores.map(function (name) {
-                        var hasExisted = files_1.find(function (x) { return x.indexOf(name) !== -1; });
-                        // 若当天存在 当前操作人员的两份表格
+                        var onlyOneFile = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 1;
+                        var hasExisted = files_1.filter(function (x) { return x.indexOf(name) === 0; }).length === 2;
+                        // 只有一份文件，无法分析
+                        if (onlyOneFile) {
+                            return {
+                                name: name,
+                                list: [],
+                                errMsg: "\u53EA\u4E0A\u4F20\u4E86\u3010" + files_1.filter(function (x) { return x.indexOf(name) === 0; })[0] + "\u3011\uFF0C\u65E0\u6CD5\u5206\u6790",
+                                allPass: false,
+                                summary: "\u4E0D\u901A\u8FC7",
+                            };
+                        }
+                        // 若当天存在 当前操作人员的 两份表格
                         if (hasExisted) {
                             var twoFiles = files_1.filter(function (x) { return x.indexOf(name) !== -1; });
                             var billFormName = twoFiles.find(function (x) { return x.indexOf('账单') !== -1; });
@@ -153,10 +164,14 @@ var DuiZhangCtrl = /** @class */ (function () {
                             // 【科室】当前操作人员所负责的所有科室
                             var operatorMapDepartmenItem = _this.cache.getDuiZhang(_this.OperatorChargeDepartment);
                             var targetItem = operatorMapDepartmenItem.filter(function (x) { return x.name === name; });
+                            // 【错误】未对当前操作人员，设置 操作人员与科室的映射关系
                             if (targetItem.length === 0) {
                                 return {
-                                    statusCode: 500,
-                                    msg: "\u8BA1\u7B97\u53D1\u751F\u9519\u8BEF\uFF1A\u3010" + name + "\u3011\u672A\u8BBE\u7F6E\u5BF9\u5E94\u79D1\u5BA4"
+                                    name: name,
+                                    list: [],
+                                    allPass: false,
+                                    summary: '不通过',
+                                    errMsg: "\u672A\u8BBE\u7F6E\u3010" + name + "\u5BF9\u5E94\u7684\u79D1\u5BA4\u3011\uFF0C\u8BF7\u68C0\u67E5\u8BBE\u7F6E"
                                 };
                             }
                             var departments_1 = targetItem[0].departments;
@@ -165,29 +180,80 @@ var DuiZhangCtrl = /** @class */ (function () {
                             // 【账单-微信】当前操作人员负责全部科室的所有条目
                             var wxRows = billForm[billWxIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billWxRemarkIndex_1]; }); });
                             // 【日报／支付宝】汇总
-                            var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportZfbIndex_1]) + pre; }, 0);
+                            var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportZfbIndex_1]) * 100 + pre; }, 0) / 100;
                             // 【日报／微信】汇总
-                            var reportFormWxTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportWxIndex_1]) + pre; }, 0);
+                            var reportFormWxTotal = operatorRows.reduce(function (pre, next) { return Number(next[reportWxIndex_1]) * 100 + pre; }, 0) / 100;
                             // 【账单／支付宝】汇总
-                            var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return Number(next[billZfbIncomeIndex_1]) + pre; }, 0);
+                            var billFormZfbTotal = zfbRows.reduce(function (pre, next) { return Number(next[billZfbIncomeIndex_1]) * 100 + pre; }, 0) / 100;
                             // 【账单／微信】汇总
-                            var billFormWxTotal = wxRows.reduce(function (pre, next) { return Number(next[billWxIncomeIndex_1]) + pre; }, 0);
-                            // 2-1. 核对支付宝的 - 返回true/false
-                            var zfbResult = {
-                                reportFormZfbTotal: reportFormZfbTotal,
-                                billFormZfbTotal: billFormZfbTotal,
-                                result: reportFormZfbTotal === billFormZfbTotal
-                            };
-                            // 2-2. 核对微信的 - 返回true/false
-                            var wxResult = {
-                                reportFormWxTotal: reportFormWxTotal,
-                                billFormWxTotal: billFormWxTotal,
-                                result: reportFormWxTotal === billFormWxTotal
-                            };
+                            var billFormWxTotal = wxRows.reduce(function (pre, next) { return Number(next[billWxIncomeIndex_1]) * 100 + pre; }, 0) / 100;
+                            // 验证结果
+                            var zfbResult = '';
+                            var wxResult = '';
+                            //【校验-支付宝】
+                            if (reportFormZfbTotal === 0) {
+                                // 日报金额为0，账单金额为0
+                                if (zfbRows.length === 0) {
+                                    zfbResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    // 日报金额为0，账单金额不为0
+                                }
+                                else {
+                                    zfbResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                }
+                            }
+                            else {
+                                // 日报金额不为0，账单金额为0( 未填写备注 )
+                                if (zfbRows.length === 0) {
+                                    zfbResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u652F\u4ED8\u5B9D\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
+                                    // 日报金额不为0，账单金额为0
+                                }
+                                else {
+                                    zfbResult = "\u5BA1\u6838" + (reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormZfbTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormZfbTotal + "\u5143" + (reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、');
+                                }
+                            }
+                            //【校验-微信】
+                            if (reportFormWxTotal === 0) {
+                                // 日报金额为0，账单金额为0
+                                if (wxRows.length === 0) {
+                                    wxResult = "\u5BA1\u6838\u901A\u8FC7\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u76F8\u7B49\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                    // 日报金额为0，账单金额不为0
+                                }
+                                else {
+                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143\u4E0D\u76F8\u7B49\uFF0C\u8BF7\u91CD\u65B0\u6838\u5BF9\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、') + "\u3002";
+                                }
+                            }
+                            else {
+                                // 日报金额不为0，账单金额为0( 未填写备注 )
+                                if (wxRows.length === 0) {
+                                    wxResult = "\u5BA1\u6838\u5931\u8D25\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\uFF0C\u4F46\u3010\u8D26\u5355\uFF0F\u652F\u4ED8\u5B9D\u3011\u8868\u683C\u7684\u4E2D\uFF0C\u6CA1\u6709\u79D1\u5BA4\u4E3A\u3010" + departments_1.join('、') + "\u3011\u7684\u5907\u6CE8\uFF0C\u8BF7\u8865\u4E0A\u5907\u6CE8\u540E\u91CD\u73B0\u63D0\u4EA4\u3002";
+                                    // 日报金额为0，账单金额不为0
+                                }
+                                else {
+                                    wxResult = "\u5BA1\u6838" + (reportFormWxTotal === billFormWxTotal ? '通过' : '失败') + "\uFF0C\u3010\u65E5\u62A5\u91D1\u989D\u3011" + reportFormWxTotal + "\u5143\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011" + billFormWxTotal + "\u5143" + (reportFormWxTotal === billFormWxTotal ? '相等' : '不相等') + "\u3002\u5979\u5F53\u5929\u8D1F\u8D23\u7684\u79D1\u5BA4\u4E3A" + departments_1.join('、');
+                                }
+                            }
+                            // 验证结果
                             return {
-                                zfbResult: zfbResult,
-                                wxResult: wxResult,
-                                name: name
+                                name: name,
+                                errMsg: '',
+                                summary: "" + ((reportFormZfbTotal === billFormZfbTotal && reportFormWxTotal === billFormWxTotal) ? '通过' : '不通过'),
+                                allPass: reportFormZfbTotal === billFormZfbTotal && reportFormWxTotal === billFormWxTotal,
+                                list: [
+                                    {
+                                        type: 'zfb',
+                                        billFormTotal: billFormZfbTotal,
+                                        reportFormTotal: reportFormZfbTotal,
+                                        status: reportFormZfbTotal === billFormZfbTotal,
+                                        text: zfbResult
+                                    },
+                                    {
+                                        type: 'wx',
+                                        billFormTotal: billFormWxTotal,
+                                        reportFormTotal: reportFormWxTotal,
+                                        status: billFormWxTotal === reportFormWxTotal,
+                                        text: wxResult
+                                    }
+                                ]
                             };
                         }
                         return undefined;

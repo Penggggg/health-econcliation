@@ -2,7 +2,7 @@ import './index.less';
 import * as React from 'react';
 import * as request from 'superagent';
 import * as ReactDom from 'react-dom';
-import { Upload, message, Icon, Button, notification, Tabs, Modal, Input, List, Avatar } from 'antd';
+import { Upload, message, Icon, Button, notification, Tabs, Modal, Input } from 'antd';
 
 const Dragger = Upload.Dragger;
 const TabPane = Tabs.TabPane;
@@ -57,31 +57,31 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
               statusCode === 200 && this.myNotification( 'success', 'Success', msg );
               statusCode !== 200 && this.myNotification( 'error', 'Failed', msg );
 
-              const result = data.map( metaData => {
+              // const result = data.map( metaData => {
 
-                const { zfbResult, wxResult } = metaData;
-                let obj = { };
-                obj['name'] = metaData.name;
-                obj['list'] = [
-                  {
-                    type: 'zfb',
-                    status: zfbResult.result ? 'success' : 'fail',
-                    text: `审核${ zfbResult.result ? '通过' : '失败' }：【日报金额】【${zfbResult.reportFormZfbTotal}元】与【账单金额】【${zfbResult.billFormZfbTotal}元】${ zfbResult.result ? '相等' : '不相等' }`
-                  },
-                  {
-                    type: 'wx',
-                    status: wxResult.result ? 'success' : 'fail',
-                    text: `审核${ wxResult.result ? '通过' : '失败' }：【日报金额】【${wxResult.reportFormWxTotal}元】与【账单金额】【${wxResult.billFormWxTotal}元】${ wxResult.result ? '相等' : '不相等' }`
+              //   const { zfbResult, wxResult } = metaData;
+              //   let obj = { };
+              //   obj['name'] = metaData.name;
+              //   obj['list'] = [
+              //     {
+              //       type: 'zfb',
+              //       status: zfbResult.result ? 'success' : 'fail',
+              //       text: `审核${ zfbResult.result ? '通过' : '失败' }：【日报金额】【${zfbResult.reportFormZfbTotal}元】与【账单金额】【${zfbResult.billFormZfbTotal}元】${ zfbResult.result ? '相等' : '不相等' }`
+              //     },
+              //     {
+              //       type: 'wx',
+              //       status: wxResult.result ? 'success' : 'fail',
+              //       text: `审核${ wxResult.result ? '通过' : '失败' }：【日报金额】【${wxResult.reportFormWxTotal}元】与【账单金额】【${wxResult.billFormWxTotal}元】${ wxResult.result ? '相等' : '不相等' }`
        
-                  }
-                ];
+              //     }
+              //   ];
 
-                return obj;
+              //   return obj;
 
-              });
+              // });
 
-              this.setState({ result });
-              console.log( result );
+              // this.setState({ result });
+              // console.log( result );
 
            })
            .catch(( ) => this.myNotification( 'error', 'Failed', '重置失败，请联系男朋友' ));
@@ -140,8 +140,7 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
            })
            .then( req => {
 
-             let result = '';
-             const { statusCode, msg, data } = req.body;
+             const { statusCode, msg } = req.body;
              statusCode === 200 && this.myNotification('success', 'Success', msg );
              statusCode !== 200 && this.myNotification('error', 'Failed', msg );
 
@@ -150,7 +149,7 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
              })
 
            })
-           .catch( e => this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'))
+           .catch(( ) => this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'))
   }
 
   // 拉取 操作人员 - 科室映射
@@ -175,11 +174,11 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
             })
 
           })
-          .catch( e => this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'))
+          .catch(( ) => this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'))
   }
 
   render( ) {
-    const { showModal1, relationship, result } = this.state;
+    const { relationship, result } = this.state;
     return (
       <div className="app-page">
 

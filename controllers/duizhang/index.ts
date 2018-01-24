@@ -82,8 +82,21 @@ export class DuiZhangCtrl {
       // 2. 根据操作人员寻找两张表单（日报、账单）, name为当前操作人员名字
       const result = this.operatores.map( name => {
 
-        const hasExisted = files.find( x => x.indexOf( name ) !== -1 );
-        // 若当天存在 当前操作人员的两份表格
+        const onlyOneFile = files.filter( x => x.indexOf( name ) === 0 ).length === 1;
+        const hasExisted = files.filter( x => x.indexOf( name ) === 0 ).length === 2;
+
+        // 只有一份文件，无法分析
+        if ( onlyOneFile ) {
+          return {
+            name,
+            list: [ ],
+            errMsg: `只上传了【${files.filter( x => x.indexOf( name ) === 0 )[0]}】，无法分析`,
+            allPass: false,
+            summary: `不通过`,
+          };
+        }
+
+        // 若当天存在 当前操作人员的 两份表格
         if ( hasExisted ) {
 
           const twoFiles = files.filter( x => x.indexOf( name ) !== -1 );
@@ -117,12 +130,17 @@ export class DuiZhangCtrl {
           const operatorMapDepartmenItem: operatorMapDepartmenItem[] = this.cache.getDuiZhang( this.OperatorChargeDepartment );
           const targetItem = operatorMapDepartmenItem.filter( x => x.name === name );
           
+          // 【错误】未对当前操作人员，设置 操作人员与科室的映射关系
           if ( targetItem.length === 0 ) {
             return {
-              statusCode: 500,
-              msg: `计算发生错误：【${name}】未设置对应科室`
+              name,
+              list: [ ],
+              allPass: false,
+              summary: '不通过',
+              errMsg: `未设置【${name}对应的科室】，请检查设置`
             }
           }
+
           const departments = targetItem[ 0 ].departments;
 
           // 【账单-支付宝】当前操作人员负责全部科室的所有条目
@@ -132,38 +150,94 @@ export class DuiZhangCtrl {
           const wxRows = billForm[ billWxIndex ].data.filter( x => departments.find( dname => dname ===  x[ billWxRemarkIndex ]))
 
           // 【日报／支付宝】汇总
-          const reportFormZfbTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportZfbIndex ]) + pre, 0 );
+          const reportFormZfbTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportZfbIndex ]) * 100 + pre, 0 ) / 100;
 
           // 【日报／微信】汇总
-         const reportFormWxTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportWxIndex ]) + pre, 0 );
+         const reportFormWxTotal = operatorRows.reduce(( pre, next ) => Number( next[ reportWxIndex ]) * 100 + pre, 0 ) / 100;
 
           // 【账单／支付宝】汇总
-          const billFormZfbTotal = zfbRows.reduce(( pre, next ) => Number( next[ billZfbIncomeIndex ]) + pre, 0 );
+          const billFormZfbTotal = zfbRows.reduce(( pre, next ) => Number( next[ billZfbIncomeIndex ]) * 100 + pre, 0 ) / 100;
 
           // 【账单／微信】汇总
-          const billFormWxTotal = wxRows.reduce(( pre, next ) => Number( next[ billWxIncomeIndex ]) + pre, 0 );
+          const billFormWxTotal = wxRows.reduce(( pre, next ) => Number( next[ billWxIncomeIndex ]) * 100 + pre, 0 ) / 100;
 
-          // 2-1. 核对支付宝的 - 返回true/false
-          const zfbResult = {
-            reportFormZfbTotal,
-            billFormZfbTotal,
-            result: reportFormZfbTotal === billFormZfbTotal
-          };
+          // 验证结果
+          let zfbResult = '';
+          let wxResult = '';
 
-          // 2-2. 核对微信的 - 返回true/false
-          const wxResult = {
-            reportFormWxTotal,
-            billFormWxTotal,
-            result: reportFormWxTotal === billFormWxTotal
+          //【校验-支付宝】
+          if ( reportFormZfbTotal === 0 ) {
+
+            // 日报金额为0，账单金额为0
+            if ( zfbRows.length === 0 ) {
+              zfbResult = `审核通过，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元相等。她当天负责的科室为${departments.join('、')}。`;
+            // 日报金额为0，账单金额不为0
+            } else {
+              zfbResult = `审核失败，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元不相等，请重新核对。她当天负责的科室为${departments.join('、')}。`
+            }
+
+          } else {
+
+            // 日报金额不为0，账单金额为0( 未填写备注 )
+            if ( zfbRows.length === 0 ) {
+              zfbResult = `审核失败，【日报金额】${reportFormZfbTotal}元，但【账单／支付宝】表格的中，没有科室为【${departments.join('、')}】的备注，请补上备注后重现提交。`;
+            // 日报金额不为0，账单金额为0
+            } else {
+              zfbResult = `审核${ reportFormZfbTotal === billFormZfbTotal ? '通过' : '失败' }，【日报金额】${reportFormZfbTotal}元与【账单金额】${billFormZfbTotal}元${ reportFormZfbTotal === billFormZfbTotal ? '相等' : '不相等' }。她当天负责的科室为${departments.join('、')}`;
+            }
+
           }
 
+          //【校验-微信】
+          if ( reportFormWxTotal === 0 ) {
+
+            // 日报金额为0，账单金额为0
+            if ( wxRows.length === 0 ) {
+              wxResult = `审核通过，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元相等。她当天负责的科室为${departments.join('、')}。`;
+            // 日报金额为0，账单金额不为0
+            } else {
+              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元不相等，请重新核对。她当天负责的科室为${departments.join('、')}。`
+            }
+
+          } else {
+
+            // 日报金额不为0，账单金额为0( 未填写备注 )
+            if ( wxRows.length === 0 ) {
+              wxResult = `审核失败，【日报金额】${reportFormWxTotal}元，但【账单／支付宝】表格的中，没有科室为【${departments.join('、')}】的备注，请补上备注后重现提交。`;
+            // 日报金额为0，账单金额不为0
+            } else {
+              wxResult = `审核${ reportFormWxTotal === billFormWxTotal ? '通过' : '失败' }，【日报金额】${reportFormWxTotal}元与【账单金额】${billFormWxTotal}元${ reportFormWxTotal === billFormWxTotal ? '相等' : '不相等' }。她当天负责的科室为${departments.join('、')}`;
+            }
+
+          }
+
+          // 验证结果
           return {
-            zfbResult,
-            wxResult,
-            name
+            name,
+            errMsg: '',
+            summary: `${(reportFormZfbTotal === billFormZfbTotal && reportFormWxTotal === billFormWxTotal) ? '通过' : '不通过'}`,
+            allPass: reportFormZfbTotal === billFormZfbTotal && reportFormWxTotal === billFormWxTotal,
+            list: [
+              {
+                type: 'zfb',
+                billFormTotal: billFormZfbTotal,
+                reportFormTotal: reportFormZfbTotal,
+                status: reportFormZfbTotal === billFormZfbTotal,
+                text: zfbResult
+              },
+              {
+                type: 'wx',
+                billFormTotal: billFormWxTotal,
+                reportFormTotal: reportFormWxTotal,
+                status: billFormWxTotal === reportFormWxTotal,
+                text: wxResult
+              }
+            ]
           }
         }
+
         return undefined;
+
       });
 
       const resultFinal = result.filter( x => x!== undefined );
@@ -173,6 +247,7 @@ export class DuiZhangCtrl {
         statusCode: 200,
         data: resultFinal
       };
+
     } catch ( e ) {
       return {
         msg: '重置失败，请联系男朋友',

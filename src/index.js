@@ -51,26 +51,26 @@ var Duizhang = /** @class */ (function (_super) {
                 var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
-                var result = data.map(function (metaData) {
-                    var zfbResult = metaData.zfbResult, wxResult = metaData.wxResult;
-                    var obj = {};
-                    obj['name'] = metaData.name;
-                    obj['list'] = [
-                        {
-                            type: 'zfb',
-                            status: zfbResult.result ? 'success' : 'fail',
-                            text: "\u5BA1\u6838" + (zfbResult.result ? '通过' : '失败') + "\uFF1A\u3010\u65E5\u62A5\u91D1\u989D\u3011\u3010" + zfbResult.reportFormZfbTotal + "\u5143\u3011\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011\u3010" + zfbResult.billFormZfbTotal + "\u5143\u3011" + (zfbResult.result ? '相等' : '不相等')
-                        },
-                        {
-                            type: 'wx',
-                            status: wxResult.result ? 'success' : 'fail',
-                            text: "\u5BA1\u6838" + (wxResult.result ? '通过' : '失败') + "\uFF1A\u3010\u65E5\u62A5\u91D1\u989D\u3011\u3010" + wxResult.reportFormWxTotal + "\u5143\u3011\u4E0E\u3010\u8D26\u5355\u91D1\u989D\u3011\u3010" + wxResult.billFormWxTotal + "\u5143\u3011" + (wxResult.result ? '相等' : '不相等')
-                        }
-                    ];
-                    return obj;
-                });
-                _this.setState({ result: result });
-                console.log(result);
+                // const result = data.map( metaData => {
+                //   const { zfbResult, wxResult } = metaData;
+                //   let obj = { };
+                //   obj['name'] = metaData.name;
+                //   obj['list'] = [
+                //     {
+                //       type: 'zfb',
+                //       status: zfbResult.result ? 'success' : 'fail',
+                //       text: `审核${ zfbResult.result ? '通过' : '失败' }：【日报金额】【${zfbResult.reportFormZfbTotal}元】与【账单金额】【${zfbResult.billFormZfbTotal}元】${ zfbResult.result ? '相等' : '不相等' }`
+                //     },
+                //     {
+                //       type: 'wx',
+                //       status: wxResult.result ? 'success' : 'fail',
+                //       text: `审核${ wxResult.result ? '通过' : '失败' }：【日报金额】【${wxResult.reportFormWxTotal}元】与【账单金额】【${wxResult.billFormWxTotal}元】${ wxResult.result ? '相等' : '不相等' }`
+                //     }
+                //   ];
+                //   return obj;
+                // });
+                // this.setState({ result });
+                // console.log( result );
             })
                 .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
         };
@@ -119,15 +119,14 @@ var Duizhang = /** @class */ (function (_super) {
                 list: _this.operatorMapDepartment
             })
                 .then(function (req) {
-                var result = '';
-                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
+                var _a = req.body, statusCode = _a.statusCode, msg = _a.msg;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
                 _this.setState({
                     showModal1: false
                 });
             })
-                .catch(function (e) { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
+                .catch(function () { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
         };
         // 拉取 操作人员 - 科室映射
         _this.getOperatorMapDepartment = function () {
@@ -147,7 +146,7 @@ var Duizhang = /** @class */ (function (_super) {
                     relationship: result
                 });
             })
-                .catch(function (e) { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
+                .catch(function () { return _this.myNotification('error', 'Failed', '网络连接失败，请查看网络情况'); });
         };
         _this.state = {
             result: [],
@@ -161,7 +160,7 @@ var Duizhang = /** @class */ (function (_super) {
     };
     Duizhang.prototype.render = function () {
         var _this = this;
-        var _a = this.state, showModal1 = _a.showModal1, relationship = _a.relationship, result = _a.result;
+        var _a = this.state, relationship = _a.relationship, result = _a.result;
         return (React.createElement("div", { className: "app-page" },
             React.createElement(Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
                 React.createElement("p", { className: "ant-upload-drag-icon" },
