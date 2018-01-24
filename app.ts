@@ -21,5 +21,10 @@ useKoaServer( app, {
   controllers
 });
 
-app.listen( serverConfig.port );
-console.log(`running in ${serverConfig.port}`);
+if ( process.env.NODE_ENV === 'development' ) {
+  app.listen( serverConfig.devPort );
+  console.log(`running in ${serverConfig.devPort} with ${process.env.NODE_ENV}.`);
+} else {
+  app.listen( serverConfig.proPort );
+  console.log(`running in ${serverConfig.proPort} with ${process.env.NODE_ENV}.`);
+}

@@ -1,3 +1,4 @@
 export const serverConfig = {
-  port: 9099
+  devPort: 9099,
+  proPort: 8888
 };

@@ -112,7 +112,7 @@ var DuiZhangCtrl = /** @class */ (function () {
     DuiZhangCtrl.prototype.analysAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var filePosition_1, files_1, summaryFormItems_1, result, summaryForm, summaryFormBuffer, resultFinal;
+            var filePosition_1, files_1, summaryFormItems_1, result, resultFinal, summaryForm, summaryFormBuffer, savePath;
             return __generator(this, function (_a) {
                 try {
                     filePosition_1 = path.join(__dirname, '../../upload/files');
@@ -267,25 +267,39 @@ var DuiZhangCtrl = /** @class */ (function () {
                         }
                         return undefined;
                     });
-                    summaryForm = [
-                        {
-                            name: 'sheet1',
-                            data: summaryFormItems_1
-                        }
-                    ];
-                    summaryFormBuffer = xlsx.build(summaryForm);
-                    fs.writeFileSync(filePosition_1 + "/\u6C47\u603B\u8868.xlsx", summaryFormBuffer);
                     resultFinal = result.filter(function (x) { return x !== undefined; });
+                    // 2-1. 【日报】生成汇总
+                    if (resultFinal.length > 0) {
+                        summaryForm = [
+                            {
+                                name: 'sheet1',
+                                data: summaryFormItems_1
+                            }
+                        ];
+                        summaryFormBuffer = xlsx.build(summaryForm);
+                        savePath = path.join(__dirname, '../../static/download');
+                        if (!fs.existsSync(savePath)) {
+                            fs.mkdirSync(savePath);
+                        }
+                        fs.writeFileSync(savePath + "/summary.xlsx", summaryFormBuffer);
+                    }
                     return [2 /*return*/, {
                             msg: '分析成功',
                             statusCode: 200,
-                            data: resultFinal
+                            data: {
+                                result: resultFinal,
+                                dowmloadUrl: "/static/download/summary.xlsx"
+                            }
                         }];
                 }
                 catch (e) {
                     return [2 /*return*/, {
                             msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
-                            statusCode: 500
+                            statusCode: 500,
+                            data: {
+                                result: [],
+                                dowmloadUrl: ''
+                            }
                         }];
                 }
                 return [2 /*return*/];

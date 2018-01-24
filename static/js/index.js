@@ -6678,6 +6678,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_antd_lib_avatar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_antd_lib_avatar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_antd_lib_card__ = __webpack_require__(291);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_antd_lib_card___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_antd_lib_card__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_antd_lib_spin__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_antd_lib_spin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_antd_lib_spin__);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -6688,6 +6690,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+
 
 
 
@@ -6714,7 +6717,6 @@ var Duizhang = /** @class */ (function (_super) {
         _this.statusChange = function (info) {
             var status = info.file.status;
             if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
             }
             if (status === 'done') {
                 __WEBPACK_IMPORTED_MODULE_5_antd_lib_message___default.a.success(info.file.name + " file uploaded successfully.");
@@ -6734,16 +6736,22 @@ var Duizhang = /** @class */ (function (_super) {
         };
         // 分析所有文件
         _this.analysAllFiles = function () {
+            _this.setState({ analysing: true });
             __WEBPACK_IMPORTED_MODULE_2_superagent__["get"]('/duizhang/analys-all')
                 .then(function (req) {
                 var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
                 _this.setState({
-                    result: data
+                    result: data.result,
+                    analysing: false,
+                    summaryDownloadUrl: "" + data.dowmloadUrl
                 });
             })
-                .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
+                .catch(function () {
+                _this.setState({ analysing: false });
+                _this.myNotification('error', 'Failed', '网络连接失败，请查询网络情况。');
+            });
         };
         // 复用函数
         _this.myNotification = function (type, msg, des) {
@@ -6822,7 +6830,9 @@ var Duizhang = /** @class */ (function (_super) {
         _this.state = {
             result: [],
             relationship: '',
+            analysing: false,
             showModal1: false,
+            summaryDownloadUrl: ''
         };
         return _this;
     }
@@ -6831,31 +6841,30 @@ var Duizhang = /** @class */ (function (_super) {
     };
     Duizhang.prototype.render = function () {
         var _this = this;
-        var _a = this.state, relationship = _a.relationship, result = _a.result;
+        var _a = this.state, relationship = _a.relationship, result = _a.result, analysing = _a.analysing, summaryDownloadUrl = _a.summaryDownloadUrl;
         return (__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("div", { className: "app-page" },
-            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", { className: "ant-upload-drag-icon" },
-                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "inbox" })),
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", null, "\u70B9\u51FB\u56FE\u6807\u4E0A\u4F20"),
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
-            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("div", { className: "btn-block" },
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97")),
-            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("div", { className: "result-block" }, result.length !== 0 &&
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_14_antd_lib_card___default.a, { title: "\u5BA1\u6838\u7ED3\u679C", style: { width: '100%' } },
-                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a, { itemLayout: 'horizontal', dataSource: result, renderItem: function (item) { return (__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a.Item, null,
-                            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a.Item.Meta, { avatar: __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_13_antd_lib_avatar___default.a, { src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" }), title: __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("a", { style: { fontSize: 18 } },
-                                    item.name,
-                                    " ",
-                                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("span", { style: { fontSize: 16 } }, item.summary)), description: item.list.map(function (li, key) { return (__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", { key: key },
-                                    li.status ?
-                                        __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "check-circle", style: { color: '#52c41a' } }) :
-                                        __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "close-circle", style: { color: '#f5222d' } }),
-                                    li.type === 'wx' ? '【微信】' : '【支付宝】',
-                                    li.text)); }) }))); } }))),
-            (result.length !== 0 && !result.find(function (x) { return x.allPass === false; })) &&
-                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("a", null, "\u70B9\u51FB\u4E0B\u8F7D"),
+            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_15_antd_lib_spin___default.a, { spinning: analysing, size: "large" },
+                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", { className: "ant-upload-drag-icon" },
+                        __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "inbox" })),
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", null, "\u70B9\u51FB\u56FE\u6807\u4E0A\u4F20"),
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
+                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("div", { className: "btn-block" },
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: this.deleteAllFiles, type: "primary", ghost: true }, "\u91CD\u7F6E"),
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_7_antd_lib_button___default.a, { onClick: this.analysAllFiles, type: "primary", loading: analysing }, "\u8BA1\u7B97")),
+                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("div", { className: "result-block" }, result.length !== 0 &&
+                    __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_14_antd_lib_card___default.a, { style: { width: '100%' }, title: '审核结果' },
+                        __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a, { itemLayout: 'horizontal', dataSource: result, footer: __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("a", { href: summaryDownloadUrl, download: '汇总表.xlsx' }, "\u70B9\u51FB\u4E0B\u8F7D\u6C47\u603B\u8868"), renderItem: function (item) { return (__WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a.Item, null,
+                                __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_12_antd_lib_list___default.a.Item.Meta, { avatar: __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_13_antd_lib_avatar___default.a, { src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" }), title: __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("a", { style: { fontSize: 18 } },
+                                        item.name,
+                                        " ",
+                                        __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("span", { style: { fontSize: 16 } }, item.summary)), description: item.list.map(function (li, key) { return (__WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", { key: key },
+                                        li.status ?
+                                            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "check-circle", style: { color: '#52c41a' } }) :
+                                            __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_6_antd_lib_icon___default.a, { type: "close-circle", style: { color: '#f5222d' } }),
+                                        li.type === 'wx' ? '【微信】' : '【支付宝】',
+                                        li.text)); }) }))); } })))),
             __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](__WEBPACK_IMPORTED_MODULE_10_antd_lib_modal___default.a, { title: "设置操作人员与科室", visible: this.state.showModal1, onOk: this.submitOperatorMapDepartment, onCancel: function () { return _this.setState({ showModal1: false }); } },
                 __WEBPACK_IMPORTED_MODULE_1_react__["createElement"]("p", null, "\u683C\u5F0F\u4E3A\uFF1A\u64CD\u4F5C\u4EBA\u5458-\u79D1\u5BA4"),
                 __WEBPACK_IMPORTED_MODULE_1_react__["createElement"](TextArea, { value: relationship, placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));

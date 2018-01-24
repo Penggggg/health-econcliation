@@ -2,10 +2,11 @@ import 'reflect-metadata';
 import * as Koa from 'koa';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as KoaSend from 'koa-send';
 import * as xlsx from 'node-xlsx';
 import { injectable } from 'inversify';
 import * as asyncBusboy from 'async-busboy';
-import { JsonController, Post, Ctx, Get } from 'routing-controllers';
+import { JsonController, Post, Ctx, Get, Params } from 'routing-controllers';
 
 const DEBUG = process.env.NODE_ENV === 'development';
 
@@ -36,6 +37,7 @@ export class UploadCtrl {
   async deleteAll( ) {
     try {
       const filePosition = path.join( __dirname, '../../upload/files' );
+      const downloadPosition = path.join( __dirname, '../../static/download' );
       // 0. 清空文件夹内容
       const deleteFolder = path => {
         if ( fs.existsSync( path )) {
@@ -51,6 +53,7 @@ export class UploadCtrl {
         }
       }
       deleteFolder( filePosition );
+      deleteFolder( downloadPosition );
       return {
         msg: '重置成功',
         statusCode: 200
@@ -63,4 +66,18 @@ export class UploadCtrl {
     }
   }
 
+  @Get('/download/:file')
+  async download(
+      @Ctx( ) ctx,
+      @Params( ) params
+    ) {
+    try {
+      const filename = params.file;
+      ctx.attachment( filename );
+      return await KoaSend( ctx, `/upload/files/${filename}` );
+    } catch ( e ) {
+      console.log( e );
+      return;
+    }
+  }
 }

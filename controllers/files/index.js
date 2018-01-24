@@ -50,6 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var fs = require("fs");
 var path = require("path");
+var KoaSend = require("koa-send");
 var inversify_1 = require("inversify");
 var asyncBusboy = require("async-busboy");
 var routing_controllers_1 = require("routing-controllers");
@@ -83,10 +84,11 @@ var UploadCtrl = /** @class */ (function () {
     };
     UploadCtrl.prototype.deleteAll = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var filePosition, deleteFolder_1;
+            var filePosition, downloadPosition, deleteFolder_1;
             return __generator(this, function (_a) {
                 try {
                     filePosition = path.join(__dirname, '../../upload/files');
+                    downloadPosition = path.join(__dirname, '../../static/download');
                     deleteFolder_1 = function (path) {
                         if (fs.existsSync(path)) {
                             var files = fs.readdirSync(path);
@@ -102,6 +104,7 @@ var UploadCtrl = /** @class */ (function () {
                         }
                     };
                     deleteFolder_1(filePosition);
+                    deleteFolder_1(downloadPosition);
                     return [2 /*return*/, {
                             msg: '重置成功',
                             statusCode: 200
@@ -114,6 +117,26 @@ var UploadCtrl = /** @class */ (function () {
                         }];
                 }
                 return [2 /*return*/];
+            });
+        });
+    };
+    UploadCtrl.prototype.download = function (ctx, params) {
+        return __awaiter(this, void 0, void 0, function () {
+            var filename, e_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        filename = params.file;
+                        ctx.attachment(filename);
+                        return [4 /*yield*/, KoaSend(ctx, "/upload/files/" + filename)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2:
+                        e_2 = _a.sent();
+                        console.log(e_2);
+                        return [2 /*return*/];
+                    case 3: return [2 /*return*/];
+                }
             });
         });
     };
@@ -130,6 +153,14 @@ var UploadCtrl = /** @class */ (function () {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], UploadCtrl.prototype, "deleteAll", null);
+    __decorate([
+        routing_controllers_1.Get('/download/:file'),
+        __param(0, routing_controllers_1.Ctx()),
+        __param(1, routing_controllers_1.Params()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], UploadCtrl.prototype, "download", null);
     UploadCtrl = __decorate([
         routing_controllers_1.JsonController('/files'),
         inversify_1.injectable()

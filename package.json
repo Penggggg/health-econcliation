@@ -6,7 +6,8 @@
   "scripts": {
     "ts": "tsc -w --pretty",
     "run:dev": "NODE_ENV=development nodemon app.js",
-    "client:dev": "NODE_ENV=development webpack --config ./config/webpack.config.js --w"
+    "client:dev": "NODE_ENV=development webpack --config ./config/webpack.config.js --w",
+    "run:pro": "NODE_ENV=production node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-logs-full": "^0.0.8",
     "koa-router": "^7.3.0",
+    "koa-send": "^4.1.2",
     "koa-static2": "^0.1.8",
     "lru-cache": "^4.1.1",
     "node-xlsx": "^0.11.2",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/koa": "^2.0.43",
+    "@types/koa-send": "^4.1.1",
     "@types/lru-cache": "^4.1.0",
     "@types/node": "^9.3.0",
     "@types/react": "^16.0.34",

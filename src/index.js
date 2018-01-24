@@ -26,7 +26,6 @@ var Duizhang = /** @class */ (function (_super) {
         _this.statusChange = function (info) {
             var status = info.file.status;
             if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
             }
             if (status === 'done') {
                 antd_1.message.success(info.file.name + " file uploaded successfully.");
@@ -46,16 +45,22 @@ var Duizhang = /** @class */ (function (_super) {
         };
         // 分析所有文件
         _this.analysAllFiles = function () {
+            _this.setState({ analysing: true });
             request.get('/duizhang/analys-all')
                 .then(function (req) {
                 var _a = req.body, statusCode = _a.statusCode, msg = _a.msg, data = _a.data;
                 statusCode === 200 && _this.myNotification('success', 'Success', msg);
                 statusCode !== 200 && _this.myNotification('error', 'Failed', msg);
                 _this.setState({
-                    result: data
+                    result: data.result,
+                    analysing: false,
+                    summaryDownloadUrl: "" + data.dowmloadUrl
                 });
             })
-                .catch(function () { return _this.myNotification('error', 'Failed', '重置失败，请联系男朋友'); });
+                .catch(function () {
+                _this.setState({ analysing: false });
+                _this.myNotification('error', 'Failed', '网络连接失败，请查询网络情况。');
+            });
         };
         // 复用函数
         _this.myNotification = function (type, msg, des) {
@@ -134,7 +139,9 @@ var Duizhang = /** @class */ (function (_super) {
         _this.state = {
             result: [],
             relationship: '',
+            analysing: false,
             showModal1: false,
+            summaryDownloadUrl: ''
         };
         return _this;
     }
@@ -143,31 +150,30 @@ var Duizhang = /** @class */ (function (_super) {
     };
     Duizhang.prototype.render = function () {
         var _this = this;
-        var _a = this.state, relationship = _a.relationship, result = _a.result;
+        var _a = this.state, relationship = _a.relationship, result = _a.result, analysing = _a.analysing, summaryDownloadUrl = _a.summaryDownloadUrl;
         return (React.createElement("div", { className: "app-page" },
-            React.createElement(Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
-                React.createElement("p", { className: "ant-upload-drag-icon" },
-                    React.createElement(antd_1.Icon, { type: "inbox" })),
-                React.createElement("p", null, "\u70B9\u51FB\u56FE\u6807\u4E0A\u4F20"),
-                React.createElement("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
-            React.createElement("div", { className: "btn-block" },
-                React.createElement(antd_1.Button, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
-                React.createElement(antd_1.Button, { onClick: this.deleteAllFiles }, "\u91CD\u7F6E"),
-                React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary" }, "\u8BA1\u7B97")),
-            React.createElement("div", { className: "result-block" }, result.length !== 0 &&
-                React.createElement(antd_1.Card, { title: "\u5BA1\u6838\u7ED3\u679C", style: { width: '100%' } },
-                    React.createElement(antd_1.List, { itemLayout: 'horizontal', dataSource: result, renderItem: function (item) { return (React.createElement(antd_1.List.Item, null,
-                            React.createElement(antd_1.List.Item.Meta, { avatar: React.createElement(antd_1.Avatar, { src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" }), title: React.createElement("a", { style: { fontSize: 18 } },
-                                    item.name,
-                                    " ",
-                                    React.createElement("span", { style: { fontSize: 16 } }, item.summary)), description: item.list.map(function (li, key) { return (React.createElement("p", { key: key },
-                                    li.status ?
-                                        React.createElement(antd_1.Icon, { type: "check-circle", style: { color: '#52c41a' } }) :
-                                        React.createElement(antd_1.Icon, { type: "close-circle", style: { color: '#f5222d' } }),
-                                    li.type === 'wx' ? '【微信】' : '【支付宝】',
-                                    li.text)); }) }))); } }))),
-            (result.length !== 0 && !result.find(function (x) { return x.allPass === false; })) &&
-                React.createElement("a", null, "\u70B9\u51FB\u4E0B\u8F7D"),
+            React.createElement(antd_1.Spin, { spinning: analysing, size: "large" },
+                React.createElement(Dragger, { name: 'file', multiple: true, action: '/files/upload', onChange: function (info) { return _this.statusChange(info); } },
+                    React.createElement("p", { className: "ant-upload-drag-icon" },
+                        React.createElement(antd_1.Icon, { type: "inbox" })),
+                    React.createElement("p", null, "\u70B9\u51FB\u56FE\u6807\u4E0A\u4F20"),
+                    React.createElement("p", null, "\u6216\u8005\u4E00\u6B21\u6027\u62D6\u62FD\u6240\u6709\u6587\u4EF6\u5230\u8BE5\u533A\u57DF")),
+                React.createElement("div", { className: "btn-block" },
+                    React.createElement(antd_1.Button, { onClick: function () { return _this.setState({ showModal1: true }); } }, "\u8BBE\u7F6E"),
+                    React.createElement(antd_1.Button, { onClick: this.deleteAllFiles, type: "primary", ghost: true }, "\u91CD\u7F6E"),
+                    React.createElement(antd_1.Button, { onClick: this.analysAllFiles, type: "primary", loading: analysing }, "\u8BA1\u7B97")),
+                React.createElement("div", { className: "result-block" }, result.length !== 0 &&
+                    React.createElement(antd_1.Card, { style: { width: '100%' }, title: '审核结果' },
+                        React.createElement(antd_1.List, { itemLayout: 'horizontal', dataSource: result, footer: React.createElement("a", { href: summaryDownloadUrl, download: '汇总表.xlsx' }, "\u70B9\u51FB\u4E0B\u8F7D\u6C47\u603B\u8868"), renderItem: function (item) { return (React.createElement(antd_1.List.Item, null,
+                                React.createElement(antd_1.List.Item.Meta, { avatar: React.createElement(antd_1.Avatar, { src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" }), title: React.createElement("a", { style: { fontSize: 18 } },
+                                        item.name,
+                                        " ",
+                                        React.createElement("span", { style: { fontSize: 16 } }, item.summary)), description: item.list.map(function (li, key) { return (React.createElement("p", { key: key },
+                                        li.status ?
+                                            React.createElement(antd_1.Icon, { type: "check-circle", style: { color: '#52c41a' } }) :
+                                            React.createElement(antd_1.Icon, { type: "close-circle", style: { color: '#f5222d' } }),
+                                        li.type === 'wx' ? '【微信】' : '【支付宝】',
+                                        li.text)); }) }))); } })))),
             React.createElement(antd_1.Modal, { title: "设置操作人员与科室", visible: this.state.showModal1, onOk: this.submitOperatorMapDepartment, onCancel: function () { return _this.setState({ showModal1: false }); } },
                 React.createElement("p", null, "\u683C\u5F0F\u4E3A\uFF1A\u64CD\u4F5C\u4EBA\u5458-\u79D1\u5BA4"),
                 React.createElement(TextArea, { value: relationship, placeholder: "请输入操作人员与科室的对应关系", autosize: { minRows: 5, maxRows: 20 }, onChange: function (e) { return _this.onChange(e.target.value); } }))));

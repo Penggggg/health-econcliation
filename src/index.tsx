@@ -2,7 +2,7 @@ import './index.less';
 import * as React from 'react';
 import * as request from 'superagent';
 import * as ReactDom from 'react-dom';
-import { Upload, message, Icon, Button, notification, Tabs, Modal, Input, List, Avatar, Card } from 'antd';
+import { Upload, message, Icon, Button, notification, Tabs, Modal, Input, List, Avatar, Card, Spin } from 'antd';
 
 const Dragger = Upload.Dragger;
 const TabPane = Tabs.TabPane;
@@ -17,7 +17,9 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
      this.state = {
       result: [ ],
       relationship: '',
+      analysing: false,
       showModal1: false,
+      summaryDownloadUrl: ''
     }
   }
 
@@ -29,7 +31,7 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
   statusChange = info => {
     const status = info.file.status;
     if ( status !== 'uploading') {
-      console.log(info.file, info.fileList);
+
     }
     if ( status === 'done') {
       message.success(`${info.file.name} file uploaded successfully.`);
@@ -50,16 +52,22 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
 
   // 分析所有文件
   analysAllFiles = ( ) => {
+    this.setState({ analysing: true });
     request.get('/duizhang/analys-all')
            .then( req => {
               const { statusCode, msg, data } = req.body;
               statusCode === 200 && this.myNotification( 'success', 'Success', msg );
               statusCode !== 200 && this.myNotification( 'error', 'Failed', msg );
               this.setState({
-                result: data
+                result: data.result,
+                analysing: false,
+                summaryDownloadUrl: `${data.dowmloadUrl}`
               });
            })
-           .catch(( ) => this.myNotification( 'error', 'Failed', '重置失败，请联系男朋友' ));
+           .catch(( ) => {
+             this.setState({ analysing: false });
+             this.myNotification( 'error', 'Failed', '网络连接失败，请查询网络情况。' )
+           });
   }
 
   // 复用函数
@@ -153,9 +161,10 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
   }
 
   render( ) {
-    const { relationship, result } = this.state;
+    const { relationship, result, analysing, summaryDownloadUrl } = this.state;
     return (
       <div className="app-page">
+      <Spin spinning={ analysing } size="large">
 
         <Dragger
           name ='file'
@@ -172,17 +181,21 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
 
         <div className="btn-block">
           <Button onClick={( ) => this.setState({ showModal1: true })}>设置</Button>
-          <Button onClick={ this.deleteAllFiles }>重置</Button>
-          <Button onClick={ this.analysAllFiles } type="primary">计算</Button>
+          <Button onClick={ this.deleteAllFiles } type="primary" ghost>重置</Button>
+          <Button onClick={ this.analysAllFiles } type="primary" loading={ analysing }>计算</Button>
         </div>
 
         <div className="result-block">
         {
            result.length !== 0 &&
-           <Card title={`审核结果`} style={{ width: '100%' }}>
+           <Card
+              style={{ width: '100%' }}
+              title='审核结果'
+            >
               <List
                 itemLayout='horizontal'
                 dataSource={ result }
+                footer={<a href={ summaryDownloadUrl } download='汇总表.xlsx' >点击下载汇总表</a>}
                 renderItem={ item => (
                   <List.Item>
                     <List.Item.Meta
@@ -210,27 +223,24 @@ class Duizhang extends React.PureComponent<{ }, DuiZhangState > {
         }
         </div>
 
-        {
-          ( result.length !== 0 && !result.find( x => x.allPass === false )) &&
-            <a>点击下载</a>
-        }
-        
+      </Spin>
 
-        <Modal
-          title="设置操作人员与科室"
-          visible={ this.state.showModal1 }
-          onOk={ this.submitOperatorMapDepartment }
-          onCancel={( ) => this.setState({ showModal1: false })}
-        >
-          <p>格式为：操作人员-科室</p>
+      <Modal
+        title="设置操作人员与科室"
+        visible={ this.state.showModal1 }
+        onOk={ this.submitOperatorMapDepartment }
+        onCancel={( ) => this.setState({ showModal1: false })}
+      >
+        <p>格式为：操作人员-科室</p>
 
-          <TextArea
-            value={ relationship }
-            placeholder="请输入操作人员与科室的对应关系"
-            autosize={{ minRows: 5, maxRows: 20 }}
-            onChange={ e => this.onChange( e.target.value )}
-          />
+        <TextArea
+          value={ relationship }
+          placeholder="请输入操作人员与科室的对应关系"
+          autosize={{ minRows: 5, maxRows: 20 }}
+          onChange={ e => this.onChange( e.target.value )}
+        />
       </Modal>
+
       </div>
     )
   }
@@ -275,6 +285,10 @@ interface DuiZhangState {
       status: 'success' | 'fail'
     }[ ]
   }[ ]
+  // 分析状态
+  analysing: boolean
+  // 汇总表下赞地址
+  summaryDownloadUrl: string
 };
 
 type operatorMapDepartmenItem = {

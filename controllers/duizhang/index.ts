@@ -254,29 +254,45 @@ export class DuiZhangCtrl {
 
       });
 
-      // 2-1. 【日报】生成汇总
-      const summaryForm = [
-        {
-          name: 'sheet1',
-          data: summaryFormItems
-        }
-      ]
-
-      const summaryFormBuffer = xlsx.build( summaryForm );
-      fs.writeFileSync( `${filePosition}/汇总表.xlsx`, summaryFormBuffer );
-
       const resultFinal = result.filter( x => x!== undefined );
+
+      // 2-1. 【日报】生成汇总
+      if ( resultFinal.length > 0 ) {
+        const summaryForm = [
+          {
+            name: 'sheet1',
+            data: summaryFormItems
+          }
+        ]
+
+        const summaryFormBuffer = xlsx.build( summaryForm );
+        const savePath = path.join( __dirname, '../../static/download' );
+        if ( !fs.existsSync( savePath )) {
+          fs.mkdirSync( savePath );
+        }
+
+        fs.writeFileSync( `${savePath}/summary.xlsx`, summaryFormBuffer );
+
+      }
+      
 
       return {
         msg: '分析成功',
         statusCode: 200,
-        data: resultFinal
+        data: {
+          result: resultFinal,
+          dowmloadUrl: `/static/download/summary.xlsx`
+        }
       };
 
     } catch ( e ) {
       return {
         msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
-        statusCode: 500
+        statusCode: 500,
+        data: {
+          result: [ ],
+          dowmloadUrl: ''
+        }
       };
     }
   }

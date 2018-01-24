@@ -19,5 +19,11 @@ routing_controllers_1.useContainer(inversify_config_1.ioc);
 routing_controllers_1.useKoaServer(app, {
     controllers: controllers_1.default
 });
-app.listen(app_config_1.serverConfig.port);
-console.log("running in " + app_config_1.serverConfig.port);
+if (process.env.NODE_ENV === 'development') {
+    app.listen(app_config_1.serverConfig.devPort);
+    console.log("running in " + app_config_1.serverConfig.devPort + " with " + process.env.NODE_ENV + ".");
+}
+else {
+    app.listen(app_config_1.serverConfig.proPort);
+    console.log("running in " + app_config_1.serverConfig.proPort + " with " + process.env.NODE_ENV + ".");
+}
