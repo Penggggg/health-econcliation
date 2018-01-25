@@ -7,7 +7,8 @@
     "ts": "tsc -w --pretty",
     "run:dev": "NODE_ENV=development nodemon app.js",
     "client:dev": "NODE_ENV=development webpack --config ./config/webpack.config.js --w",
-    "run:pro": "NODE_ENV=production node app.js"
+    "run:pro": "NODE_ENV=production node app.js",
+    "build": "NODE_ENV=production webpack --config ./config/webpack.config.js "
   },
   "author": "",
   "license": "ISC",

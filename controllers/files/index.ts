@@ -19,7 +19,16 @@ export class UploadCtrl {
     @Ctx( ) ctx ) {
     try {
       const { files, fields } = await asyncBusboy( ctx.req );
+      const uploadPosition = path.join( __dirname, '../../upload' );
       const filePosition = path.join( __dirname, '../../upload/files' );
+
+      if ( !fs.existsSync( uploadPosition )) {
+        fs.mkdirSync( uploadPosition );
+      }
+
+      if ( !fs.existsSync( filePosition )) {
+        fs.mkdirSync( filePosition );
+      }
 
       files.map( x => {
         console.log(`正在存储: ${x.filename}`);

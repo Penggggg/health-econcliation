@@ -307,7 +307,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                 catch (e) {
                     console.log(e);
                     return [2 /*return*/, {
-                            msg: '分析失败，请点击”重置“后重试。或请联系男朋友。',
+                            msg: '分析失败，请点击”重置“或检查表格格式后重试。或请联系男朋友。',
                             statusCode: 500,
                             data: {
                                 result: [],

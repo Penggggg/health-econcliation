@@ -60,7 +60,7 @@ var UploadCtrl = /** @class */ (function () {
     }
     UploadCtrl.prototype.upload = function (ctx) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, files, fields, filePosition_1, e_1;
+            var _a, files, fields, uploadPosition, filePosition_1, e_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -68,7 +68,14 @@ var UploadCtrl = /** @class */ (function () {
                         return [4 /*yield*/, asyncBusboy(ctx.req)];
                     case 1:
                         _a = _b.sent(), files = _a.files, fields = _a.fields;
+                        uploadPosition = path.join(__dirname, '../../upload');
                         filePosition_1 = path.join(__dirname, '../../upload/files');
+                        if (!fs.existsSync(uploadPosition)) {
+                            fs.mkdirSync(uploadPosition);
+                        }
+                        if (!fs.existsSync(filePosition_1)) {
+                            fs.mkdirSync(filePosition_1);
+                        }
                         files.map(function (x) {
                             console.log("\u6B63\u5728\u5B58\u50A8: " + x.filename);
                             x.pipe(fs.createWriteStream(filePosition_1 + "/" + x.filename));
