@@ -77,7 +77,7 @@ export class DuiZhangCtrl {
       if (( files.length % 2 === 1 && !files.find( x => x === '.DS_Store' )) || ( files.length % 2 === 0 && files.find( x => x === '.DS_Store' ) )) {
         return {
           statusCode: 400,
-          msg: '文件数量错误，请关闭所有请重置后重新上传',
+          msg: '文件数量错误，请重置后刷新页面，然后重新上传',
         }
       }
 
@@ -155,11 +155,24 @@ export class DuiZhangCtrl {
 
           const departments = targetItem[ 0 ].departments;
 
+          // 工具函数 - 去掉字符串头尾的空字符 
+          const Trim = str => str.replace(/(^\s*)|(\s*$)/g, "");
+
           // 【账单-支付宝】当前操作人员负责全部科室的所有条目
-          const zfbRows = billForm[ billZfbIndex ].data.filter( x => departments.find( dname => dname ===  x[ billZfbRemarkIndex ]))
+          const zfbRows = billForm[ billZfbIndex ].data.filter( x => departments.find( dname => {
+            if ( x[ billZfbRemarkIndex ]) {
+              return dname === Trim( x[ billZfbRemarkIndex ]);
+            }
+            return false;
+          }));
 
           // 【账单-微信】当前操作人员负责全部科室的所有条目
-          const wxRows = billForm[ billWxIndex ].data.filter( x => departments.find( dname => dname ===  x[ billWxRemarkIndex ]))
+          const wxRows = billForm[ billWxIndex ].data.filter( x => departments.find( dname => {
+            if ( dname === x[ billWxRemarkIndex ]) {
+              return dname === Trim( x[ billWxRemarkIndex ])
+            }
+            return false;
+          }));
 
           // 【日报／支付宝】汇总
           const reportFormZfbTotal = operatorRows.reduce(( pre, next ) => ( next[ reportZfbIndex ] ? Number( next[ reportZfbIndex ]) * 100 : 0 ) + pre, 0 ) / 100;

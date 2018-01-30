@@ -121,7 +121,7 @@ var DuiZhangCtrl = /** @class */ (function () {
                     if ((files_1.length % 2 === 1 && !files_1.find(function (x) { return x === '.DS_Store'; })) || (files_1.length % 2 === 0 && files_1.find(function (x) { return x === '.DS_Store'; }))) {
                         return [2 /*return*/, {
                                 statusCode: 400,
-                                msg: '文件数量错误，请关闭所有请重置后重新上传',
+                                msg: '文件数量错误，请重置后刷新页面，然后重新上传',
                             }];
                     }
                     summaryFormItems_1 = [];
@@ -182,10 +182,22 @@ var DuiZhangCtrl = /** @class */ (function () {
                                 };
                             }
                             var departments_1 = targetItem[0].departments;
+                            // 工具函数 - 去掉字符串头尾的空字符 
+                            var Trim_1 = function (str) { return str.replace(/(^\s*)|(\s*$)/g, ""); };
                             // 【账单-支付宝】当前操作人员负责全部科室的所有条目
-                            var zfbRows = billForm[billZfbIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billZfbRemarkIndex_1]; }); });
+                            var zfbRows = billForm[billZfbIndex].data.filter(function (x) { return departments_1.find(function (dname) {
+                                if (x[billZfbRemarkIndex_1]) {
+                                    return dname === Trim_1(x[billZfbRemarkIndex_1]);
+                                }
+                                return false;
+                            }); });
                             // 【账单-微信】当前操作人员负责全部科室的所有条目
-                            var wxRows = billForm[billWxIndex].data.filter(function (x) { return departments_1.find(function (dname) { return dname === x[billWxRemarkIndex_1]; }); });
+                            var wxRows = billForm[billWxIndex].data.filter(function (x) { return departments_1.find(function (dname) {
+                                if (dname === x[billWxRemarkIndex_1]) {
+                                    return dname === Trim_1(x[billWxRemarkIndex_1]);
+                                }
+                                return false;
+                            }); });
                             // 【日报／支付宝】汇总
                             var reportFormZfbTotal = operatorRows.reduce(function (pre, next) { return (next[reportZfbIndex_1] ? Number(next[reportZfbIndex_1]) * 100 : 0) + pre; }, 0) / 100;
                             // 【日报／微信】汇总
