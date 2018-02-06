@@ -161,15 +161,15 @@ export class DuiZhangCtrl {
           // 【账单-支付宝】当前操作人员负责全部科室的所有条目
           const zfbRows = billForm[ billZfbIndex ].data.filter( x => departments.find( dname => {
             if ( x[ billZfbRemarkIndex ]) {
-              return dname === Trim( x[ billZfbRemarkIndex ]);
+              return dname.trim( ) === x[ billZfbRemarkIndex ].trim( );
             }
             return false;
           }));
 
           // 【账单-微信】当前操作人员负责全部科室的所有条目
           const wxRows = billForm[ billWxIndex ].data.filter( x => departments.find( dname => {
-            if ( dname === x[ billWxRemarkIndex ]) {
-              return dname === Trim( x[ billWxRemarkIndex ])
+            if ( x[ billWxRemarkIndex ]) {
+              return dname.trim( ) === x[ billWxRemarkIndex ].trim( )
             }
             return false;
           }));
